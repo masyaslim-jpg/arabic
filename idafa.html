@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Мудаф и мудаф илейхи</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Amiri:wght@700&family=Lora:wght@500;600;700&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Emerald and gold: dark green panels, gold outlines, mint for success. */
+:root {
+  --bg: #04110D; --panel: #0A1F18; --panel-2: #0E2A21; --ink: #EEF0E6; --muted: #98AFA4; --line: rgba(214, 178, 104, .28);
+  --line-soft: rgba(214, 178, 104, .14); --gold: #E4BE72; --gold-2: #C8913C; --mint: #3BE3A0; --ok: #3BE3A0; --bad: #F2675C;
+  --m: #F0C675; --mi: #5FE0B6;
+  --ar: "Scheherazade New", "Amiri", "Geeza Pro", serif;
+  --serif: "Lora", Georgia, serif;
+  --body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); font: 400 15px/1.5 var(--body); -webkit-font-smoothing: antialiased;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D6B268' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M40 4 50 30 76 40 50 50 40 76 30 50 4 40 30 30Z'/%3E%3Cpath d='M40 18 58 22 62 40 58 58 40 62 22 58 18 40 22 22Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(1200px 600px at 70% -10%, #0F3328 0%, transparent 60%), var(--bg); }
+button { font: inherit; color: inherit; }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.app { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+
+/* Sidebar */
+.side { position: sticky; top: 0; height: 100vh; padding: 26px 18px; display: flex; flex-direction: column; gap: 22px;
+  background: linear-gradient(180deg, #0B241C, #061611); border-right: 1px solid var(--line-soft); }
+.logo { text-align: center; }
+.logo svg { width: 92px; height: 104px; display: block; margin: 0 auto 6px; filter: drop-shadow(0 0 14px rgba(228, 190, 114, .25)); }
+.logo b { display: block; font: 600 25px/1.15 var(--serif); color: var(--ink); }
+.logo span { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); }
+.nav { display: grid; gap: 4px; }
+.nav a { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px; color: var(--muted); text-decoration: none; font-weight: 500; border: 1px solid transparent; }
+.nav a:hover { color: var(--ink); background: rgba(255, 255, 255, .03); }
+.nav a.on { color: var(--ink); background: linear-gradient(90deg, rgba(59, 227, 160, .16), rgba(59, 227, 160, .04)); border-color: rgba(59, 227, 160, .35); }
+.nav svg, .ico { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.rule { margin-top: auto; position: relative; overflow: hidden; border-radius: 16px; border: 1px solid var(--line); padding: 16px 16px 70px;
+  background: linear-gradient(180deg, #123227, #0A1F18); font: 500 14px/1.45 var(--serif); }
+.rule .m { color: var(--m); } .rule .mi { color: var(--mi); }
+.rule svg { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 70px; }
+
+/* Main column */
+.main { padding: 22px 28px 48px; display: grid; gap: 18px; align-content: start; min-width: 0; }
+.top { display: flex; align-items: center; gap: 12px; }
+.search { flex: 1; max-width: 420px; display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px; border-radius: 999px;
+  border: 1px solid var(--line); background: rgba(10, 31, 24, .8); color: var(--muted); }
+.search input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font: inherit; outline: none; }
+.search input::placeholder { color: var(--muted); }
+.pills { margin-left: auto; display: flex; gap: 10px; }
+.pill { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px 0 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(10, 31, 24, .8); }
+.pill i { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: rgba(228, 190, 114, .12); color: var(--gold); }
+.pill i svg { width: 16px; height: 16px; fill: currentColor; stroke: none; }
+.pill b { display: block; font-size: 15px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.pill small { display: block; font-size: 11px; color: var(--muted); line-height: 1.1; }
+
+.basmala { margin: -4px 0 -6px; text-align: center; font: 700 clamp(26px, 3.4vw, 38px)/1.7 "Amiri", var(--ar);
+  background: linear-gradient(180deg, #FBE3A6, #C8913C); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 10px rgba(228, 190, 114, .3)); }
+
+/* Hero banner */
+.hero { position: relative; overflow: hidden; border-radius: 22px; border: 1px solid var(--line); min-height: 250px;
+  background: linear-gradient(100deg, #061A14 0%, #0A2A21 38%, rgba(10, 42, 33, 0) 60%), linear-gradient(180deg, #0D3A31 0%, #1D4B3B 45%, #8A6A34 82%, #D49A45 100%); }
+.hero .scene { position: absolute; inset: 0 0 0 auto; width: 70%; height: 100%; }
+.hero .txt { position: relative; z-index: 1; padding: 32px 34px; max-width: 470px; }
+.hero h1 { margin: 0; font: 600 clamp(28px, 3.4vw, 40px)/1.12 var(--serif); }
+.hero p { margin: 12px 0 22px; font-size: 16px; color: #D5DDD5; }
+.hero .cal { position: absolute; z-index: 1; right: 30px; top: 22px; font: 700 54px/1.5 "Amiri", var(--ar);
+  background: linear-gradient(180deg, #FBE3A6, #C8913C); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 12px rgba(228, 190, 114, .35)); }
+.gold { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 24px; border: 0; border-radius: 999px; cursor: pointer;
+  background: linear-gradient(180deg, #F6D58E, #C9923F); color: #1A1305; font-weight: 600; font-size: 15px; box-shadow: 0 6px 22px rgba(228, 190, 114, .28), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.gold:hover { filter: brightness(1.06); }
+.gold:disabled { opacity: .35; cursor: default; filter: none; box-shadow: none; }
+.gold svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* Definition */
+.def { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 26px; flex-wrap: wrap; }
+.def-k { display: block; font-size: 12px; font-weight: 600; color: var(--gold); letter-spacing: .1em; text-transform: uppercase; }
+.def-txt b { display: block; margin-top: 4px; font: 600 24px/1.25 var(--serif); }
+.def-txt small { display: block; margin-top: 4px; font-size: 14px; color: var(--muted); }
+.def-pic { display: flex; align-items: center; gap: 14px; }
+.def-pic .w { display: grid; justify-items: center; padding: 2px 16px 8px; border-radius: 14px; border: 1px solid var(--line); background: rgba(0, 0, 0, .22); }
+.def-pic .w b { font: 700 34px/1.7 var(--ar); }
+.def-pic .w b.m { color: var(--m); } .def-pic .w b.mi { color: var(--mi); }
+.def-pic small { direction: ltr; text-align: center; font-size: 12px; color: var(--muted); }
+.def-pic .link { display: grid; justify-items: center; gap: 4px; }
+.def-pic .link i { display: block; width: 70px; height: 2px; background: linear-gradient(90deg, var(--mi), var(--gold), var(--m)); box-shadow: 0 0 8px rgba(228, 190, 114, .6); position: relative; }
+.def-pic .link i::before, .def-pic .link i::after { content: ""; position: absolute; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+.def-pic .link i::before { left: -5px; } .def-pic .link i::after { right: -5px; }
+.def-pic em { direction: ltr; white-space: nowrap; font-style: normal; font-size: 12px; font-weight: 600; color: var(--gold); }
+@media (max-width: 560px) { .def { padding: 16px; } .def-pic { width: 100%; justify-content: center; gap: 8px; } .def-pic .w { padding: 2px 10px 8px; } .def-pic .w b { font-size: 26px; } .def-pic .link i { width: 34px; } }
+
+/* Mode cards */
+.modes { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.mode { position: relative; text-align: center; padding: 18px 12px 38px; border-radius: 16px; cursor: pointer; border: 1px solid var(--line-soft);
+  background: linear-gradient(180deg, var(--panel-2), var(--panel)); transition: border-color .2s, box-shadow .2s, transform .2s; }
+.mode:hover { border-color: var(--line); transform: translateY(-2px); }
+.mode[aria-pressed="true"] { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(228, 190, 114, .3), 0 0 26px rgba(228, 190, 114, .18); }
+.mode .ic { width: 44px; height: 44px; margin: 0 auto 10px; display: block; }
+.mode b { display: block; font-size: 15px; font-weight: 600; }
+.mode small { display: block; margin-top: 4px; font-size: 12px; line-height: 1.3; color: var(--muted); }
+.mode .go { position: absolute; right: 10px; bottom: 10px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .08); color: var(--muted); }
+.mode .go svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; }
+.mode[aria-pressed="true"] .go { background: var(--gold); color: #1A1305; }
+
+/* Quiz + stats */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; align-items: start; }
+.card { border-radius: 20px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(14, 42, 33, .95), rgba(8, 26, 20, .95)); box-shadow: 0 10px 40px rgba(0, 0, 0, .35); }
+.quiz { position: relative; overflow: hidden; padding: 16px 20px 18px; }
+.quiz::before, .quiz::after { content: ""; position: absolute; top: 90px; width: 60px; height: 190px; opacity: .55; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 190'%3E%3Cg fill='none' stroke='%23D6B268' stroke-width='1.2'%3E%3Cpath d='M0 0c22 18 34 40 34 66 0 18-10 30-10 44 0 26 20 44 36 56M0 22c14 14 22 30 22 48 0 16-8 26-8 40 0 22 12 40 26 52'/%3E%3Ccircle cx='26' cy='95' r='6'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain; }
+.quiz::before { left: 0; } .quiz::after { right: 0; transform: scaleX(-1); }
+.qtop { display: flex; align-items: center; gap: 14px; }
+.chip-dark { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: rgba(0, 0, 0, .25); border: 1px solid var(--line-soft); font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.chip-dark b { font-weight: 600; }
+.bar { flex: 1; height: 8px; border-radius: 8px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; border-radius: 8px; background: linear-gradient(90deg, #1FB57A, var(--mint)); box-shadow: 0 0 10px rgba(59, 227, 160, .6); transition: width .35s ease; }
+.round { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; border: 1px solid var(--line); background: rgba(0, 0, 0, .25); color: var(--gold); }
+.round svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ask { position: relative; display: grid; justify-items: center; gap: 2px; min-height: 190px; align-content: center; text-align: center; padding: 16px 60px 6px; }
+.task { margin: 0; font-size: 12px; font-weight: 600; color: var(--gold); letter-spacing: .1em; text-transform: uppercase; }
+.wordrow { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.speak { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; flex: none;
+  border: 1px solid rgba(59, 227, 160, .35); background: radial-gradient(circle, rgba(59, 227, 160, .18), rgba(59, 227, 160, .04)); color: var(--ink); }
+.speak svg { width: 22px; height: 22px; fill: currentColor; }
+.speak[hidden] { display: none; }
+.word { margin: 0; font: 700 clamp(46px, 7vw, 70px)/1.7 var(--ar); color: #F6E7C6; text-shadow: 0 0 22px rgba(228, 190, 114, .18); }
+.word.ru { font: 600 clamp(24px, 3vw, 30px)/1.35 var(--serif); color: var(--ink); padding: 12px 0; }
+.trans { margin: 0; min-height: 1.4em; font: 500 18px/1.4 var(--serif); color: #D5DDD5; }
+.word .m { color: var(--m); } .word .mi { color: var(--mi); }
+.word .plus { color: var(--muted); font-size: .6em; }
+.word .both, .chip b .both { background: linear-gradient(90deg, var(--mi), var(--m)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.word.mark .m, .word.mark .mi, .word.mark .both { color: rgba(246, 231, 198, .45); background: none; }
+.word.mark .hl { color: var(--gold); text-decoration: underline 3px; text-underline-offset: .42em; text-shadow: 0 0 18px rgba(228, 190, 114, .45); }
+
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 660px; margin: 6px auto 0; direction: rtl; }
+.opt { position: relative; border-radius: 14px; padding: 6px 16px; cursor: pointer; border: 1px solid rgba(214, 178, 104, .32);
+  background: linear-gradient(180deg, rgba(20, 48, 39, .9), rgba(10, 30, 24, .9)); color: var(--ink); font: 700 30px/1.85 var(--ar); transition: border-color .15s, box-shadow .2s, background .2s; }
+.opt:hover:not(:disabled) { border-color: var(--gold); box-shadow: 0 0 18px rgba(228, 190, 114, .18); }
+.opt.ru { direction: ltr; font: 600 19px/1.3 var(--body); padding: 16px 14px; }
+.opt small { display: block; margin-top: 3px; font: 500 12px/1.2 var(--body); color: var(--muted); letter-spacing: .04em; }
+.opt.right { border: 1.5px solid var(--ok); background: linear-gradient(180deg, rgba(59, 227, 160, .28), rgba(31, 181, 122, .16)); color: #fff;
+  box-shadow: 0 0 0 3px rgba(59, 227, 160, .15), 0 0 26px rgba(59, 227, 160, .45); animation: pop .4s ease; }
+.opt.right::before { content: ""; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; border-radius: 50%;
+  background: var(--ok) no-repeat center/14px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.5l4.5-5' fill='none' stroke='%23062016' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.opt.right small { color: #D8FFEE; }
+.opt.wrong { border-color: var(--bad); color: var(--bad); background: rgba(242, 103, 92, .08); box-shadow: 0 0 14px rgba(242, 103, 92, .25); cursor: default; }
+.opt.wrong small { color: inherit; }
+.opts:has(.opt.right) .opt:not(.right) { opacity: .4; }
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
+.opts.three { grid-template-columns: repeat(3, 1fr); direction: ltr; }
+.chips.long { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+@media (max-width: 560px) { .opts, .opts.three { grid-template-columns: 1fr; } }
+
+.msg { margin: 10px 0 0; min-height: 38px; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: 15px; text-align: center; color: var(--muted); }
+.msg.ok { color: var(--ok); } .msg.bad { color: var(--bad); } .msg.hint { color: var(--gold); }
+.praise { font: 700 30px/1.3 var(--ar); text-shadow: 0 0 14px rgba(59, 227, 160, .5); }
+.qfoot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 6px; }
+.ghost { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 20px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line); background: rgba(0, 0, 0, .2); color: var(--gold); font-weight: 500; }
+.ghost:hover { border-color: var(--gold); }
+.ghost svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.col { display: grid; gap: 18px; }
+.stat { padding: 18px 20px; }
+.stat h3, .recent h3 { margin: 0 0 14px; display: flex; align-items: center; gap: 10px; font: 600 16px/1.2 var(--body); }
+.stat h3 svg, .recent h3 svg { width: 22px; height: 22px; }
+.ringrow { display: grid; grid-template-columns: 124px 1fr; gap: 14px; align-items: center; }
+.ring { position: relative; width: 124px; height: 124px; }
+.ring svg { width: 124px; height: 124px; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 10; }
+.ring .tr { stroke: rgba(255, 255, 255, .08); }
+.ring .fg { stroke: url(#rg); stroke-linecap: round; transition: stroke-dashoffset .5s ease; filter: drop-shadow(0 0 6px rgba(59, 227, 160, .5)); }
+.ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 600 26px/1 var(--body); }
+.ring + small { grid-column: 1; text-align: center; font-size: 12px; color: var(--muted); }
+.kv { display: grid; gap: 14px; }
+.kv div { display: flex; gap: 10px; align-items: center; }
+.kv svg { width: 22px; height: 22px; flex: none; }
+.kv b { display: block; font-size: 17px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kv small { display: block; font-size: 12px; color: var(--muted); }
+.learned { margin-top: 16px; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.learned b { color: var(--ink); font-size: 16px; font-variant-numeric: tabular-nums; }
+.bar.thin { height: 6px; margin-top: 8px; }
+.recent { padding: 18px 20px; }
+.recent ul { list-style: none; margin: 0; padding: 0; }
+.recent li { display: grid; grid-template-columns: 24px 1fr auto; gap: 10px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line-soft); font-size: 14px; }
+.recent li:first-child { border-top: 0; }
+.recent .dot { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; }
+.recent .dot svg { width: 11px; height: 11px; fill: none; stroke: #062016; stroke-width: 2.6; stroke-linecap: round; }
+.recent .yes .dot { background: var(--ok); } .recent .no .dot { background: var(--bad); }
+.recent .yes em { color: var(--ok); } .recent .no em { color: var(--bad); }
+.recent em { font-style: normal; font-size: 13px; }
+.recent .empty { color: var(--muted); font-size: 14px; grid-template-columns: 1fr; }
+
+/* Word picker */
+.panel { padding: 20px 22px 22px; }
+.phead { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.phead h2 { margin: 0; flex: 1; font: 600 22px/1.2 var(--serif); }
+.count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.small { height: 36px; padding: 0 14px; font-size: 14px; }
+.hint { margin: 6px 0 4px; font-size: 14px; color: var(--muted); }
+.group { margin: 18px 0 10px; font: 600 13px/1.3 var(--body); color: var(--gold); text-transform: uppercase; letter-spacing: .08em; }
+.group span { margin-left: 8px; font: 400 18px/1 var(--ar); text-transform: none; letter-spacing: 0; color: var(--muted); }
+.chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.chip { display: grid; justify-items: center; padding: 4px 10px 10px; border-radius: 14px; cursor: pointer; font-size: 13px; color: var(--muted);
+  border: 1px solid var(--line-soft); background: rgba(0, 0, 0, .18); transition: opacity .2s, filter .2s, border-color .15s, box-shadow .2s, background .2s; }
+.chip b { font: 700 25px/1.8 var(--ar); }
+.chip b .m { color: var(--m); } .chip b .mi { color: var(--mi); }
+.chip[aria-pressed="true"] { color: var(--ink); border-color: rgba(228, 190, 114, .6); background: linear-gradient(180deg, rgba(20, 48, 39, .9), rgba(10, 30, 24, .9)); box-shadow: 0 0 14px rgba(228, 190, 114, .12); }
+.chip:not([aria-pressed="true"]) { opacity: .35; filter: saturate(.3); }
+.chip:not([aria-pressed="true"]):hover { opacity: .7; }
+.chip[hidden] { display: none; }
+
+/* Cheat sheet */
+details.cheat summary { list-style: none; cursor: pointer; padding: 18px 22px; font: 600 20px/1.3 var(--serif); display: flex; justify-content: space-between; align-items: center; }
+details.cheat summary::-webkit-details-marker { display: none; }
+details.cheat summary::after { content: ""; width: 9px; height: 9px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(45deg); transition: transform .2s; }
+details.cheat[open] summary::after { transform: rotate(-135deg); }
+.cheat-body { padding: 0 22px 22px; border-top: 1px solid var(--line-soft); }
+.big { margin: 14px 0 0; font: 700 44px/1.8 var(--ar); text-align: center; }
+.big .m { color: var(--m); } .big .mi { color: var(--mi); }
+.note { margin: 0 0 12px; text-align: center; font: 500 15px var(--serif); color: var(--muted); }
+.rules { margin: 0; padding: 0; list-style: none; }
+.rules li { padding: 11px 0; border-top: 1px solid var(--line-soft); font-size: 15px; }
+.rules b.m { color: var(--m); } .rules b.mi { color: var(--mi); }
+.rules .ar { font: 700 22px/1.5 var(--ar); color: #F6E7C6; }
+
+@media (max-width: 1180px) { .grid { grid-template-columns: 1fr; } .col { grid-template-columns: 1fr 1fr; } .modes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .side { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 14px 16px; gap: 12px; border-right: 0; border-bottom: 1px solid var(--line-soft); }
+  .logo { display: flex; align-items: center; gap: 10px; text-align: left; } .logo svg { width: 40px; height: 46px; margin: 0; } .logo b { font-size: 19px; } .logo span { display: none; }
+  .nav { grid-auto-flow: column; margin-left: auto; } .nav a { padding: 8px 10px; } .nav a span { display: none; }
+  .rule { display: none; }
+  .main { padding: 16px 14px 40px; }
+  .pills .pill:last-child { display: none; }
+  .hero .scene { width: 100%; opacity: .45; } .hero .cal { display: none; } .hero .txt { padding: 24px 22px; }
+  .col { grid-template-columns: 1fr; }
+  .modes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qtop { flex-wrap: wrap; } .qtop .bar { order: 5; flex-basis: 100%; } .qtop .round { margin-left: auto; }
+  .ask { padding: 14px 4px 6px; } .quiz::before, .quiz::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo">
+      <svg viewBox="0 0 92 104" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBE3A6"/><stop offset="1" stop-color="#C8913C"/></linearGradient></defs>
+        <path d="M8 100V46C8 22 46 4 46 4s38 18 38 42v54Z" fill="#0E2A21" stroke="url(#lg)" stroke-width="3"/>
+        <path d="M16 100V50c0-18 30-34 30-34s30 16 30 34v50" fill="none" stroke="url(#lg)" stroke-width="1.2" opacity=".6"/>
+        <path d="M50 30a8 8 0 1 1-6-12 6.5 6.5 0 1 0 6 12Z" fill="url(#lg)"/>
+        <path d="M30 56c0-8 8-14 16-14s16 6 16 14Z" fill="url(#lg)"/><rect x="44" y="36" width="4" height="7" fill="url(#lg)"/>
+        <path d="M18 66c10-3 20-1 28 4 8-5 18-7 28-4v22c-10-3-20-1-28 4-8-5-18-7-28-4Z" fill="#1A120A" stroke="url(#lg)" stroke-width="2.4"/>
+        <path d="M46 70v22" stroke="url(#lg)" stroke-width="2"/>
+      </svg>
+      <b>Арабский язык</b>
+      <span>Нахв · Урок 7</span>
+    </div>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#quiz" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><span>Викторина</span></a>
+      <a href="#stats"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Статистика</span></a>
+      <a href="#words"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="13" height="17" rx="2"/><path d="M8 8h5M8 12h5M20 7v13a1 1 0 0 1-1 1H8"/></svg><span>Слова</span></a>
+      <a href="#cheat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2Z"/><path d="M4 21a2 2 0 0 1 2-2h12v2"/></svg><span>Шпаргалка</span></a>
+    </nav>
+    <div class="rule">
+      <span class="m">Мудаф</span> — то, ЧТО.<br><span class="mi">Мудаф илейхи</span> — к ЧЕМУ.
+      <svg viewBox="0 0 220 70" preserveAspectRatio="none" aria-hidden="true">
+        <defs><linearGradient id="dn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C8913C" stop-opacity=".55"/><stop offset="1" stop-color="#3A2810" stop-opacity=".9"/></linearGradient></defs>
+        <circle cx="160" cy="30" r="14" fill="#F6D58E" opacity=".75"/>
+        <path d="M0 50C40 30 80 34 120 46s70 6 100-6v30H0Z" fill="url(#dn)"/>
+        <path d="M0 60c50-14 110-12 220 0v10H0Z" fill="#1A120A"/>
+      </svg>
+    </div>
+  </aside>
+
+  <div class="main">
+    <p class="basmala" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <header class="top">
+      <label class="search"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="search" type="search" placeholder="Поиск слов…" aria-label="Поиск слов"></label>
+      <div class="pills">
+        <div class="pill"><i><svg viewBox="0 0 24 24"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9Z"/></svg></i><div><b id="streak">0</b><small>подряд верно</small></div></div>
+        <div class="pill"><i><svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8Z"/></svg></i><div><b id="score">0</b><small>с первого раза</small></div></div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <svg class="scene" viewBox="0 0 640 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <defs>
+          <radialGradient id="sun" cx=".55" cy="1" r=".6"><stop offset="0" stop-color="#FFD98A" stop-opacity=".9"/><stop offset=".5" stop-color="#E0A04A" stop-opacity=".35"/><stop offset="1" stop-color="#E0A04A" stop-opacity="0"/></radialGradient>
+          <linearGradient id="bld" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9D3A2"/><stop offset="1" stop-color="#8C7148"/></linearGradient>
+        </defs>
+        <rect width="640" height="260" fill="url(#sun)"/>
+        <g fill="url(#bld)">
+          <rect x="200" y="140" width="250" height="90"/>
+          <path d="M325 60c-40 0-62 34-62 80h124c0-46-22-80-62-80Z"/><rect x="322" y="40" width="6" height="22"/>
+          <path d="M250 104c-20 0-30 16-30 36h60c0-20-10-36-30-36ZM400 104c-20 0-30 16-30 36h60c0-20-10-36-30-36Z"/>
+          <path d="M290 118c-12 0-18 10-18 22h36c0-12-6-22-18-22ZM360 118c-12 0-18 10-18 22h36c0-12-6-22-18-22Z"/>
+          <rect x="176" y="60" width="12" height="170"/><path d="M176 60l6-26 6 26Z"/><rect x="172" y="96" width="20" height="6"/>
+          <rect x="462" y="60" width="12" height="170"/><path d="M462 60l6-26 6 26Z"/><rect x="458" y="96" width="20" height="6"/>
+          <rect x="140" y="110" width="8" height="120"/><path d="M140 110l4-18 4 18Z"/>
+          <rect x="502" y="110" width="8" height="120"/><path d="M502 110l4-18 4 18Z"/>
+        </g>
+        <g fill="#FFE3A0" opacity=".9">
+          <path d="M240 170h12v-10a6 6 0 0 0-12 0ZM270 170h12v-10a6 6 0 0 0-12 0ZM300 170h12v-10a6 6 0 0 0-12 0ZM338 170h12v-10a6 6 0 0 0-12 0ZM368 170h12v-10a6 6 0 0 0-12 0ZM398 170h12v-10a6 6 0 0 0-12 0Z"/>
+          <path d="M313 230v-34a12 12 0 0 1 24 0v34Z"/>
+        </g>
+        <g fill="#05140F">
+          <path d="M0 232c60-10 120-6 180 0s140 8 220 0 160-6 240 2v26H0Z"/>
+          <path d="M70 232c4-40 10-70 22-96" stroke="#05140F" stroke-width="7" fill="none"/>
+          <path d="M92 136c-24-4-44 6-56 18 20-6 36-8 56-18Zm0 0c-8-16-26-24-42-24 14 8 28 14 42 24Zm0 0c10-18 28-26 46-24-16 6-32 12-46 24Zm0 0c22-2 40 8 50 22-18-8-34-12-50-22Z"/>
+          <path d="M566 234c-3-34-8-58-18-80" stroke="#05140F" stroke-width="6" fill="none"/>
+          <path d="M548 154c20-4 38 4 48 16-18-5-30-7-48-16Zm0 0c6-14 22-20 36-20-12 7-24 12-36 20Zm0 0c-8-15-24-21-38-19 13 5 26 10 38 19Zm0 0c-18-2-34 6-42 18 15-6 28-10 42-18Z"/>
+          <path d="M610 236c-2-22-5-38-12-52" stroke="#05140F" stroke-width="5" fill="none"/>
+          <path d="M598 184c14-3 26 3 33 11-12-3-21-5-33-11Zm0 0c-6-10-17-14-27-13 9 4 18 7 27 13Zm0 0c-12-1-23 4-29 12 10-4 19-7 29-12Z"/>
+        </g>
+      </svg>
+      <div class="cal" lang="ar" dir="rtl">الْإِضَافَةُ</div>
+      <div class="txt">
+        <h1>Мудаф и мудаф илейхи</h1>
+        <p>Различай, кто есть кто в идафе, собирай словосочетания и переводи их.</p>
+        <button type="button" class="gold" id="goBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8Z"/></svg>Начать обучение</button>
+      </div>
+    </section>
+
+    <section class="card def" aria-label="Определение">
+      <div class="def-txt"><span class="def-k">Определение</span><b>Идафа — два слова и одна связь</b><small>Первое слово приписывается ко второму</small></div>
+      <div class="def-pic" lang="ar" dir="rtl">
+        <span class="w"><b class="m">كِتَابُ</b><small>первое слово · мудаф</small></span>
+        <span class="link" aria-hidden="true"><i></i><em>одна связь</em></span>
+        <span class="w"><b class="mi">الطَّالِبِ</b><small>второе слово · мудаф илейхи</small></span>
+      </div>
+    </section>
+
+    <nav class="modes" aria-label="Задание">
+      <button type="button" class="mode" data-mode="role"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="6" width="32" height="38" rx="5" fill="#1FB57A"/><rect x="18" y="3" width="12" height="7" rx="2" fill="#7CF0C0"/><path d="m14 20 3 3 5-6M14 31l3 3 5-6" stroke="#062016" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M26 21h9M26 32h9" stroke="#062016" stroke-width="2.6" stroke-linecap="round"/></svg><b>Кто есть кто</b><small>Мудаф или мудаф илейхи</small><span class="go"><svg viewBox="0 0 12 12"><path d="M3 6h6M6.5 3.5 9 6 6.5 8.5"/></svg></span></button>
+      <button type="button" class="mode" data-mode="build"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18h10a5 5 0 1 1 10 0h8v10a5 5 0 1 1 0 10v6H8Z" fill="#E4BE72"/><path d="M20 6h14v8a5 5 0 1 0 0 10v4" fill="none" stroke="#3BE3A0" stroke-width="3"/></svg><b>Собери</b><small>Составь идафу</small><span class="go"><svg viewBox="0 0 12 12"><path d="M3 6h6M6.5 3.5 9 6 6.5 8.5"/></svg></span></button>
+      <button type="button" class="mode" data-mode="tr"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="24" height="30" rx="4" fill="#1D8FA0" transform="rotate(-10 18 25)"/><rect x="16" y="8" width="24" height="30" rx="4" fill="#3BD6E0"/><path d="M22 18h12M22 24h12M22 30h7" stroke="#062016" stroke-width="2.6" stroke-linecap="round"/></svg><b>Перевод</b><small>Как это по-арабски?</small><span class="go"><svg viewBox="0 0 12 12"><path d="M3 6h6M6.5 3.5 9 6 6.5 8.5"/></svg></span></button>
+      <button type="button" class="mode" data-mode="mix"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="26" width="8" height="16" rx="2" fill="#1FB57A"/><rect x="20" y="16" width="8" height="26" rx="2" fill="#3BE3A0"/><rect x="32" y="6" width="8" height="36" rx="2" fill="#7CF0C0"/></svg><b>Вперемешку</b><small>Все задания подряд</small><span class="go"><svg viewBox="0 0 12 12"><path d="M3 6h6M6.5 3.5 9 6 6.5 8.5"/></svg></span></button>
+      <button type="button" class="mode" data-mode="chain"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="3" y="18" width="14" height="12" rx="6" fill="none" stroke="#E4BE72" stroke-width="3.2"/><rect x="17" y="18" width="14" height="12" rx="6" fill="none" stroke="#3BE3A0" stroke-width="3.2"/><rect x="31" y="18" width="14" height="12" rx="6" fill="none" stroke="#5FE0B6" stroke-width="3.2"/></svg><b>Сложные словосочетания</b><small>Цепочки из трёх и четырёх слов</small><span class="go"><svg viewBox="0 0 12 12"><path d="M3 6h6M6.5 3.5 9 6 6.5 8.5"/></svg></span></button>
+      <button type="button" class="mode" data-mode="err"><svg class="ic" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17" fill="none" stroke="#E4BE72" stroke-width="3.4"/><path d="M24 14v12" stroke="#E4BE72" stroke-width="3.6" stroke-linecap="round"/><circle cx="24" cy="33" r="2.4" fill="#E4BE72"/></svg><b>Работа над ошибками</b><small>Повтори трудные слова</small><span class="go"><svg viewBox="0 0 12 12"><path d="M3 6h6M6.5 3.5 9 6 6.5 8.5"/></svg></span></button>
+    </nav>
+
+    <div class="grid">
+      <section class="card quiz" id="quiz" aria-label="Викторина">
+        <div class="qtop">
+          <span class="chip-dark">Вопрос <b id="pos">1</b> из <b id="total">0</b></span>
+          <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+          <span class="chip-dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg><b id="timer">00:00</b></span>
+          <button type="button" class="round" id="restartBtn" aria-label="Начать заново"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+        </div>
+        <div class="ask" aria-live="polite" id="ask">
+          <p class="task" id="task"></p>
+          <div class="wordrow">
+            <button type="button" class="speak" id="speakBtn" aria-label="Послушать"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-8.8v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z"/></svg></button>
+            <p class="word" id="word" lang="ar" dir="rtl"></p>
+          </div>
+          <p class="trans" id="trans"></p>
+        </div>
+        <div class="opts" id="opts"></div>
+        <p class="msg" id="msg"></p>
+        <div class="qfoot">
+          <button type="button" class="ghost" id="hintBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg>Подсказка</button>
+          <button type="button" class="gold" id="nextBtn" disabled>Далее <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5l7 7-7 7-1.4-1.4 4.6-4.6H4v-2h12.2l-4.6-4.6Z"/></svg></button>
+        </div>
+      </section>
+
+      <div class="col" id="stats">
+        <section class="card stat">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="13" width="4" height="8" rx="1" fill="#1FB57A"/><rect x="10" y="8" width="4" height="13" rx="1" fill="#3BE3A0"/><rect x="17" y="3" width="4" height="18" rx="1" fill="#7CF0C0"/></svg>Ваша статистика</h3>
+          <div class="ringrow">
+            <div>
+              <div class="ring"><svg viewBox="0 0 124 124"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7CF0C0"/><stop offset="1" stop-color="#1FB57A"/></linearGradient></defs><circle class="tr" cx="62" cy="62" r="52"/><circle class="fg" id="ringFg" cx="62" cy="62" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg><b id="acc">—</b></div>
+              <small style="display:block;text-align:center;font-size:12px;color:var(--muted);margin-top:4px">верно с первого раза</small>
+            </div>
+            <div class="kv">
+              <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#E4BE72" d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8Z"/></svg><span><b id="score2">0</b><small>с первого раза</small></span></div>
+              <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#F08A3C" d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9Z"/></svg><span><b id="best">0</b><small>лучшая серия</small></span></div>
+            </div>
+          </div>
+          <div class="learned"><span>Пройдено вопросов</span><b><span id="done">0</span> / <span id="total2">0</span></b></div>
+          <div class="bar thin" aria-hidden="true"><i id="bar2"></i></div>
+        </section>
+        <section class="card recent">
+          <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#E4BE72" d="M7 3h10v3h3v2a5 5 0 0 1-4.3 5A5 5 0 0 1 13 15.9V19h3v2H8v-2h3v-3.1A5 5 0 0 1 8.3 13 5 5 0 0 1 4 8V6h3Zm0 5H6a3 3 0 0 0 1 2Zm10 0v2a3 3 0 0 0 1-2Z"/></svg>Последние ответы</h3>
+          <ul id="recent"><li class="empty">Здесь появятся ваши ответы</li></ul>
+        </section>
+      </div>
+    </div>
+
+    <section class="card panel" id="words" aria-labelledby="wordsTitle">
+      <div class="phead">
+        <h2 id="wordsTitle">Слова для викторины</h2>
+        <span class="count" id="pickCount"></span>
+        <button type="button" class="ghost small" id="allBtn">Выбрать все</button>
+        <button type="button" class="ghost small" id="noneBtn">Снять все</button>
+      </div>
+      <p class="hint">Сейчас в викторине все. Нажимай на слова, которые нужны, — в викторине останутся только они. Повторное нажатие убирает слово. Яркие — в викторине, бледные — нет.</p>
+      <h3 class="group">Словосочетания <span>كِتَابُ الطَّالِبِ</span></h3>
+      <div class="chips" id="chips"></div>
+      <h3 class="group">Сложные словосочетания <span>بَابُ بَيْتِ الْإِمَامِ</span></h3>
+      <div class="chips long" id="chipsChain"></div>
+      <h3 class="group">Исм + домир <span>كِتَابُكَ</span></h3>
+      <div class="chips" id="chipsDom"></div>
+    </section>
+
+    <details class="card cheat" id="cheat">
+      <summary>Шпаргалка</summary>
+      <div class="cheat-body">
+        <p class="big" lang="ar" dir="rtl"><span class="m">كِتَابُ</span> <span class="mi">الطَّالِبِ</span></p>
+        <p class="note">книга студента</p>
+        <ul class="rules">
+          <li><b>Идафа — два слова и одна связь.</b></li>
+          <li><b class="m">Мудаф</b> — то, ЧТО приписывается. Стоит первым.</li>
+          <li><b class="mi">Мудаф илейхи</b> — то, к ЧЕМУ приписывается. Стоит вторым.</li>
+          <li>У мудафа нет <span class="ar" lang="ar">ال</span> и нет танвина: <span class="ar" lang="ar">كِتَابٌ → كِتَابُ</span></li>
+          <li>Мудаф илейхи всегда с касрой (маджрур): <span class="ar" lang="ar">الطَّالِبُ → الطَّالِبِ</span></li>
+          <li>Мудаф принадлежит мудаф илейхи (в основном).</li>
+          <li>Исм + домир = идафа: <span class="ar" lang="ar">كِتَابُ + كَ = كِتَابُكَ</span> — твоя книга.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+// m = mudaf without its case vowel, mal = mudaf with the article (for the "with ال" mistake),
+// mi = mudaf ilayhi without its case vowel, rev = the same two words in the wrong order.
+const ITEMS = [
+  { m: 'كِتَاب', mal: 'الْكِتَاب', mi: 'الطَّالِب', ru: 'книга студента', rev: 'طَالِبُ الْكِتَابِ' },
+  { m: 'بَاب', mal: 'الْبَاب', mi: 'الْبَيْت', ru: 'дверь дома', rev: 'بَيْتُ الْبَابِ' },
+  { m: 'كِتَاب', mal: 'الْكِتَاب', mi: 'الله', ru: 'Книга Аллаха' },
+  { m: 'عَبْد', mal: 'الْعَبْد', mi: 'الله', ru: 'раб Аллаха' },
+  { m: 'بَيْت', mal: 'الْبَيْت', mi: 'الله', ru: 'дом Аллаха' },
+  { m: 'رَسُول', mal: 'الرَّسُول', mi: 'الله', ru: 'посланник Аллаха' },
+  { m: 'بَاب', mal: 'الْبَاب', mi: 'الْمَسْجِد', ru: 'дверь мечети', rev: 'مَسْجِدُ الْبَابِ' },
+  { m: 'إِمَام', mal: 'الْإِمَام', mi: 'الْمَسْجِد', ru: 'имам мечети', rev: 'مَسْجِدُ الْإِمَامِ' },
+  { m: 'قَلَم', mal: 'الْقَلَم', mi: 'الْمُدَرِّس', ru: 'ручка учителя', rev: 'مُدَرِّسُ الْقَلَمِ' },
+  { m: 'بَيْت', mal: 'الْبَيْت', mi: 'الْمُدَرِّس', ru: 'дом учителя', rev: 'مُدَرِّسُ الْبَيْتِ' },
+  { m: 'مَكْتَب', mal: 'الْمَكْتَب', mi: 'الطَّالِب', ru: 'стол студента', rev: 'طَالِبُ الْمَكْتَبِ' },
+  { m: 'كِتَاب', mal: 'الْكِتَاب', mi: 'الْمُدَرِّس', ru: 'книга учителя', rev: 'مُدَرِّسُ الْكِتَابِ' },
+  { m: 'قَلَم', mal: 'الْقَلَم', mi: 'الطَّالِب', ru: 'ручка студента', rev: 'طَالِبُ الْقَلَمِ' },
+  { m: 'بَيْت', mal: 'الْبَيْت', mi: 'الْإِمَام', ru: 'дом имама', rev: 'إِمَامُ الْبَيْتِ' },
+  { m: 'بِنْت', mal: 'الْبِنْت', mi: 'الْإِمَام', ru: 'дочь имама', rev: 'إِمَامُ الْبِنْتِ' },
+  { m: 'اِبْن', mal: 'الِابْن', mi: 'الْمُدَرِّس', ru: 'сын учителя', rev: 'مُدَرِّسُ الِابْنِ' },
+  { m: 'اِسْم', mal: 'الِاسْم', mi: 'الْوَلَد', ru: 'имя мальчика', rev: 'وَلَدُ الِاسْمِ' },
+  { m: 'قَمِيص', mal: 'الْقَمِيص', mi: 'الْوَلَد', ru: 'рубашка мальчика', rev: 'وَلَدُ الْقَمِيصِ' },
+  { m: 'سَرِير', mal: 'السَّرِير', mi: 'الْوَلَد', ru: 'кровать мальчика', rev: 'وَلَدُ السَّرِيرِ' },
+  { m: 'بَاب', mal: 'الْبَاب', mi: 'الْغُرْفَة', ru: 'дверь комнаты', rev: 'غُرْفَةُ الْبَابِ' },
+  { m: 'بَاب', mal: 'الْبَاب', mi: 'الْفَصْل', ru: 'дверь класса', rev: 'فَصْلُ الْبَابِ' },
+  { m: 'سَاعَة', mal: 'السَّاعَة', mi: 'الطَّبِيب', ru: 'часы врача', rev: 'طَبِيبُ السَّاعَةِ' },
+  // Attached pronoun as mudaf ilayhi. w = whole word, pr = the pronoun at its end.
+  { dom: true, w: 'كِتَابُكَ', base: 'كِتَابُ', pr: 'كَ', ru: 'твоя книга', wrong: ['الْكِتَابُكَ', 'كِتَابٌ كَ'] },
+  { dom: true, w: 'بَيْتُهُ', base: 'بَيْتُ', pr: 'هُ', ru: 'его дом', wrong: ['الْبَيْتُهُ', 'بَيْتٌ هُ'] },
+  { dom: true, w: 'قَلَمِي', base: 'قَلَمِ', pr: 'ي', ru: 'моя ручка', wrong: ['الْقَلَمِي', 'قَلَمٌ ي'] },
+  { dom: true, w: 'اِسْمُكَ', base: 'اِسْمُ', pr: 'كَ', ru: 'твоё имя', wrong: ['الِاسْمُكَ', 'اِسْمٌ كَ'] },
+  { dom: true, w: 'اِسْمِي', base: 'اِسْمِ', pr: 'ي', ru: 'моё имя', wrong: ['الِاسْمِي', 'اِسْمٌ ي'] },
+  { dom: true, w: 'قَلَمُكِ', base: 'قَلَمُ', pr: 'كِ', ru: 'твоя ручка (ж.)', wrong: ['الْقَلَمُكِ', 'قَلَمٌ كِ'] },
+  { dom: true, w: 'بَيْتُهَا', base: 'بَيْتُ', pr: 'هَا', ru: 'её дом', wrong: ['الْبَيْتُهَا', 'بَيْتٌ هَا'] },
+  { dom: true, w: 'بَيْتُنَا', base: 'بَيْتُ', pr: 'نَا', ru: 'наш дом', wrong: ['الْبَيْتُنَا', 'بَيْتٌ نَا'] },
+  { dom: true, w: 'كِتَابُهُمْ', base: 'كِتَابُ', pr: 'هُمْ', ru: 'их книга', wrong: ['الْكِتَابُهُمْ', 'كِتَابٌ هُمْ'] },
+  { dom: true, w: 'مَسْجِدُنَا', base: 'مَسْجِدُ', pr: 'نَا', ru: 'наша мечеть', wrong: ['الْمَسْجِدُنَا', 'مَسْجِدٌ نَا'] },
+  { dom: true, w: 'مُدَرِّسُهُمْ', base: 'مُدَرِّسُ', pr: 'هُمْ', ru: 'их учитель', wrong: ['الْمُدَرِّسُهُمْ', 'مُدَرِّسٌ هُمْ'] },
+  { dom: true, w: 'قَمِيصُهُ', base: 'قَمِيصُ', pr: 'هُ', ru: 'его рубашка', wrong: ['الْقَمِيصُهُ', 'قَمِيصٌ هُ'] },
+  // Chained idafa: every word except the first and the last is mudaf ilayhi and mudaf at once.
+  // w = the words without case vowels, al = the second word with ال (for the "ال in the middle" mistake).
+  { chain: true, w: ['بَاب', 'بَيْت', 'الْإِمَام'], al: 'الْبَيْت', ru: 'дверь дома имама' },
+  { chain: true, w: ['كِتَاب', 'ابْن', 'الْمُدَرِّس'], al: 'الِابْن', ru: 'книга сына учителя' },
+  { chain: true, w: ['اِسْم', 'بِنْت', 'الطَّبِيب'], al: 'الْبِنْت', ru: 'имя дочери врача' },
+  { chain: true, w: ['بَاب', 'غُرْفَة', 'ابْن', 'الْمُدَرِّس'], al: 'الْغُرْفَة', ru: 'дверь комнаты сына учителя' },
+  { chain: true, w: ['قَلَم', 'ابْن', 'إِمَام', 'الْمَسْجِد'], al: 'الِابْن', ru: 'ручка сына имама мечети' },
+  // Added later at the end so saved choices and mistakes keep pointing at the same words.
+  { m: 'كِتَاب', mal: 'الْكِتَاب', mi: 'الْإِمَام', ru: 'книга имама', rev: 'إِمَامُ الْكِتَابِ' },
+  { m: 'بَيْت', mal: 'الْبَيْت', mi: 'الطَّبِيب', ru: 'дом врача', rev: 'طَبِيبُ الْبَيْتِ' },
+  { chain: true, w: ['قَمِيص', 'ابْن', 'الطَّبِيب'], al: 'الِابْن', ru: 'рубашка сына врача' }
+];
+// A chain with chosen endings: first word, middle words, last word.
+const chainText = (it, a, b, c, mid1) => it.w.map((x, j) => j === 0 ? x + a : j === it.w.length - 1 ? x + c : (j === 1 && mid1 ? mid1 : x) + b).join(' ');
+const good = it => it.chain ? chainText(it, 'ُ', 'ِ', 'ِ') : it.dom ? it.w : it.m + 'ُ ' + it.mi + 'ِ';
+const span = (cls, t) => { const s = document.createElement('span'); s.className = cls; s.textContent = t; return s; };
+// The phrase as coloured parts: mudaf, then mudaf ilayhi.
+function parts(it) {
+  if (it.chain) {
+    const n = it.w.length, out = [];
+    it.w.forEach((x, j) => { if (j) out.push(document.createTextNode(' ')); out.push(span(j === 0 ? 'm' : j === n - 1 ? 'mi' : 'both', x + (j === 0 ? 'ُ' : 'ِ'))); });
+    return out;
+  }
+  return it.dom ? [span('m', it.w.slice(0, -it.pr.length)), span('mi', it.pr)]
+                : [span('m', it.m + 'ُ'), document.createTextNode(' '), span('mi', it.mi + 'ِ')];
+}
+const pref = (k, d) => { try { const v = localStorage.getItem('idafa-' + k); return v === null ? d : v; } catch (e) { return d; } };
+const setPref = (k, v) => { try { localStorage.setItem('idafa-' + k, v); } catch (e) {} };
+
+let mode = pref('mode', 'role');
+if (!['role', 'build', 'tr', 'mix', 'chain', 'err'].includes(mode)) mode = 'role';
+// Phrases answered wrongly at least once; "work on mistakes" asks only these. Kept on this device.
+let mistakes = new Set();
+try { mistakes = new Set((JSON.parse(pref('mistakes', '[]')) || []).filter(k => Number.isInteger(k) && k >= 0 && k < ITEMS.length)); } catch (e) {}
+const saveMistakes = () => setPref('mistakes', JSON.stringify([...mistakes]));
+
+let order = [], i = 0, tries = 0, score = 0, streak = 0, best = 0, answered = 0, locked = false, timer, clock, t0 = 0;
+const recent = [];
+function shuffle(a) { a = a.slice(); for (let j = a.length - 1; j > 0; j--) { const r = Math.floor(Math.random() * (j + 1)); [a[j], a[r]] = [a[r], a[j]]; } return a; }
+function msg(t, cls) { const m = $('msg'); m.className = 'msg' + (cls ? ' ' + cls : ''); m.textContent = t; }
+
+function tick() {
+  const s = Math.floor((Date.now() - t0) / 1000);
+  $('timer').textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+
+function start() {
+  clearTimeout(timer); clearInterval(clock);
+  let pool;
+  if (mode === 'err') pool = ITEMS.filter((it, k) => mistakes.has(k));
+  else if (mode === 'chain') {
+    // Chained phrases only: the chosen ones, or all of them when none is chosen.
+    pool = ITEMS.filter((it, k) => it.chain && picked.has(k));
+    if (!pool.length) pool = ITEMS.filter(it => it.chain);
+  }
+  else pool = ITEMS.filter((it, k) => picked.has(k));
+  i = 0; score = 0; streak = 0; answered = 0; recent.length = 0;
+  if (!pool.length) { empty(); paintStats(); return; }
+  // "Build" skips pronoun words (a pronoun is never written as a separate word) unless nothing else is chosen.
+  if (mode === 'build' && pool.some(it => !it.dom)) pool = pool.filter(it => !it.dom);
+  const kinds = ['role', 'build', 'tr'];
+  order = shuffle(pool).map((it, k) => {
+    let kind = (mode === 'mix' || mode === 'err' || mode === 'chain') ? kinds[k % 3] : mode;
+    if (kind === 'build' && it.dom) kind = 'tr';
+    return { it, k: ITEMS.indexOf(it), kind, pick: it.chain ? Math.floor(Math.random() * it.w.length) : Math.random() < .5 ? 'm' : 'mi' };
+  });
+  t0 = Date.now(); tick(); clock = setInterval(tick, 1000);
+  paintStats(); paintRecent();
+  ask();
+}
+
+function ask() {
+  tries = 0; locked = false; msg('', ''); $('nextBtn').disabled = true;
+  $('pos').textContent = i + 1;
+  const q = order[i], it = q.it, w = $('word'), opts = $('opts');
+  w.className = 'word'; w.lang = 'ar'; w.dir = 'rtl'; w.replaceChildren(); opts.replaceChildren(); opts.className = 'opts';
+  let list;
+  if (q.kind === 'role') {
+    $('task').textContent = 'Подчёркнутое слово — это…';
+    w.classList.add('mark');
+    const p = parts(it);
+    if (it.chain) p.filter(n => n.nodeType === 1)[q.pick].classList.add('hl');
+    else p.filter(n => n.className === q.pick).forEach(n => n.classList.add('hl'));
+    w.append(...p);
+    $('trans').textContent = it.ru;
+    if (it.chain) {
+      const r = q.pick === 0 ? 'm' : q.pick === it.w.length - 1 ? 'mi' : 'both';
+      list = [{ ru: 'Мудаф', sub: 'только ЧТО?', ok: r === 'm', why: r === 'mi' ? 'Это последнее слово — только мудаф илейхи' : 'Это слово в середине — оно и мудаф илейхи, и мудаф' },
+              { ru: 'Мудаф илейхи', sub: 'только к ЧЕМУ?', ok: r === 'mi', why: r === 'm' ? 'Это первое слово — только мудаф' : 'Это слово в середине — оно и мудаф илейхи, и мудаф' },
+              { ru: 'И то, и другое', sub: 'мудаф илейхи + мудаф', ok: r === 'both', why: r === 'm' ? 'Первое слово — только мудаф' : 'Последнее слово — только мудаф илейхи' }];
+      opts.className = 'opts three';
+    } else list = [{ ru: 'Мудаф', sub: 'ЧТО?', ok: q.pick === 'm', why: 'Это мудаф илейхи: к ЧЕМУ приписывается' },
+            { ru: 'Мудаф илейхи', sub: 'к ЧЕМУ?', ok: q.pick === 'mi', why: 'Это мудаф: то, ЧТО приписывается' }];
+  } else if (q.kind === 'build') {
+    $('task').textContent = 'Собери идафу';
+    if (it.chain) {
+      it.w.forEach((x, j) => { if (j) w.append(span('plus', ' + ')); w.append(span('', x + (j === it.w.length - 1 ? 'ُ' : 'ٌ'))); });
+      $('trans').textContent = it.ru;
+      list = shuffle([
+        { ar: good(it), ok: true },
+        { ar: chainText(it, 'ُ', 'ِ', 'ِ', it.al), why: 'Слово в середине — тоже мудаф, у него не бывает ال' },
+        { ar: chainText(it, 'ٌ', 'ِ', 'ِ'), why: 'У мудафа не бывает танвина' },
+        { ar: chainText(it, 'ُ', 'ِ', 'ُ'), why: 'Последнее слово — мудаф илейхи, оно с касрой' }
+      ]);
+    } else {
+    w.append(span('', it.m + 'ٌ'), span('plus', ' + '), span('', it.mi + 'ُ'));
+    $('trans').textContent = it.ru;
+    list = shuffle([
+      { ar: good(it), ok: true },
+      { ar: it.mal + 'ُ ' + it.mi + 'ِ', why: 'У мудафа не бывает ال' },
+      { ar: it.m + 'ٌ ' + it.mi + 'ِ', why: 'У мудафа не бывает танвина' },
+      { ar: it.m + 'ُ ' + it.mi + 'ُ', why: 'Мудаф илейхи всегда с касрой' }
+    ]);
+    }
+  } else {
+    $('task').textContent = 'Как это по-арабски?';
+    w.className = 'word ru'; w.lang = 'ru'; w.removeAttribute('dir'); w.textContent = it.ru;
+    $('trans').textContent = '';
+    let wrong;
+    if (it.chain) wrong = [
+      { ar: chainText(it, 'ُ', 'ِ', 'ِ', it.al), why: 'Слово в середине — тоже мудаф, у него не бывает ال' },
+      { ar: chainText(it, 'ُ', 'ٍ', 'ِ'), why: 'Слово в середине — мудаф, у него нет танвина' },
+      { ar: chainText(it, 'ُ', 'ِ', 'ُ'), why: 'Последнее слово — мудаф илейхи, оно с касрой' }];
+    else if (it.dom) wrong = it.wrong.map(a => ({ ar: a, why: 'Домир пишется слитно, а у мудафа нет ال и танвина' }));
+    else {
+      wrong = [{ ar: it.mal + 'ُ ' + it.mi + 'ِ', why: 'У мудафа не бывает ال' },
+               { ar: it.m + 'ُ ' + it.mi + 'ُ', why: 'Мудаф илейхи всегда с касрой' }];
+      if (it.rev) wrong.push({ ar: it.rev, why: 'Сначала то, ЧТО (мудаф), потом к ЧЕМУ (мудаф илейхи)' });
+      else wrong.push({ ar: it.m + 'ٌ ' + it.mi + 'ِ', why: 'У мудафа не бывает танвина' });
+    }
+    list = shuffle([{ ar: good(it), ok: true }, ...wrong]);
+  }
+  list.forEach(o => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'opt';
+    if (o.ar) { b.lang = 'ar'; b.append(o.ar); }
+    else { b.classList.add('ru'); b.lang = 'ru'; b.append(o.ru); const s = document.createElement('small'); s.textContent = o.sub; b.append(s); }
+    b.addEventListener('click', () => answer(b, o));
+    opts.append(b);
+  });
+  $('speakBtn').hidden = !canSpeak || q.kind === 'tr';
+}
+
+function answer(b, o) {
+  if (locked) return;
+  const q = order[i];
+  if (!o.ok) {
+    tries++; b.classList.add('wrong'); b.disabled = true;
+    msg((o.why || 'Не то') + '. Попробуй ещё раз', 'bad');
+    if (tries === 1) { mistakes.add(q.k); saveMistakes(); }
+    return;
+  }
+  locked = true; b.classList.add('right'); answered++;
+  if (tries === 0) {
+    score++; streak++; best = Math.max(best, streak);
+    if (mode === 'err' && mistakes.delete(q.k)) saveMistakes();
+  } else streak = 0;
+  recent.unshift({ ru: q.it.ru, ok: tries === 0 }); recent.length = Math.min(recent.length, 5);
+  paintStats(); paintRecent();
+  // Show the finished phrase: mudaf and mudaf ilayhi in their colours.
+  const w = $('word'); w.className = 'word'; w.lang = 'ar'; w.dir = 'rtl'; w.replaceChildren(...parts(q.it));
+  $('trans').textContent = q.it.ru;
+  $('speakBtn').hidden = !canSpeak;
+  msg(tries === 0 ? '' : 'со второй попытки', 'ok');
+  const p = document.createElement('span'); p.className = 'praise'; p.lang = 'ar'; p.dir = 'rtl'; p.textContent = 'مُمْتَاز!';
+  $('msg').prepend(p);
+  $('nextBtn').disabled = false;
+  timer = setTimeout(next, 2200);
+}
+
+function next() {
+  clearTimeout(timer);
+  if (!locked) return;
+  i++; i < order.length ? ask() : finish();
+}
+
+function hint() {
+  if (!order.length || locked) return;
+  const q = order[i];
+  const t = q.it.chain
+    ? (q.kind === 'role' ? 'Первое слово — только мудаф, последнее — только мудаф илейхи, слова в середине — и то, и другое'
+                         : 'Первое слово с даммой, все следующие с касрой; ال только у последнего, танвина нет ни у кого')
+    : q.kind === 'role'
+    ? (q.it.dom ? 'Слово — мудаф, домир на конце — мудаф илейхи' : 'Первое слово — мудаф (ЧТО?), второе — мудаф илейхи (к ЧЕМУ?)')
+    : q.kind === 'build' ? 'Мудаф без ال и без танвина, мудаф илейхи — с касрой'
+    : q.it.dom ? 'Домир пишется слитно со словом, без ال и танвина' : 'Мудаф без ال и танвина, мудаф илейхи с касрой, сначала ЧТО';
+  msg(t, 'hint');
+}
+
+function paintStats() {
+  const total = order.length;
+  $('total').textContent = total; $('total2').textContent = total; $('done').textContent = answered;
+  $('score').textContent = score; $('score2').textContent = score; $('streak').textContent = streak; $('best').textContent = best;
+  const pct = answered ? Math.round(score / answered * 100) : 0;
+  $('acc').textContent = answered ? pct + '%' : '—';
+  $('ringFg').style.strokeDashoffset = 326.7 * (1 - pct / 100);
+  const w = total ? answered / total * 100 + '%' : '0';
+  $('bar').style.width = w; $('bar2').style.width = w;
+}
+
+function paintRecent() {
+  const ul = $('recent'); ul.replaceChildren();
+  if (!recent.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'Здесь появятся ваши ответы'; ul.append(li); return; }
+  recent.forEach(r => {
+    const li = document.createElement('li'); li.className = r.ok ? 'yes' : 'no';
+    li.innerHTML = '<span class="dot"><svg viewBox="0 0 12 12">' + (r.ok ? '<path d="M2.5 6.2 5 8.5l4.5-5"/>' : '<path d="M3 3l6 6M9 3 3 9"/>') + '</svg></span>';
+    const n = document.createElement('span'); n.textContent = r.ru;
+    const e = document.createElement('em'); e.textContent = r.ok ? 'С первого раза' : 'Со второй попытки';
+    li.append(n, e); ul.append(li);
+  });
+}
+
+function empty() {
+  clearInterval(clock); order = [];
+  $('task').textContent = ''; $('trans').textContent = ''; $('speakBtn').hidden = true; $('nextBtn').disabled = true;
+  const w = $('word'); w.className = 'word ru'; w.lang = 'ru'; w.removeAttribute('dir');
+  w.textContent = mode === 'err' ? 'Ошибок пока нет — отличная работа!' : 'Отметь хотя бы одно слово ниже';
+  $('opts').replaceChildren(); msg('', '');
+  $('pos').textContent = 0;
+}
+
+function finish() {
+  clearInterval(clock);
+  $('task').textContent = ''; $('trans').textContent = ''; $('speakBtn').hidden = true; $('nextBtn').disabled = true;
+  const w = $('word'); w.className = 'word ru'; w.lang = 'ru'; w.removeAttribute('dir');
+  w.textContent = `Готово! С первого раза: ${score} из ${order.length}`;
+  const opts = $('opts'); opts.replaceChildren(); opts.className = 'opts';
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'opt ru'; b.style.gridColumn = '1 / -1';
+  b.textContent = 'Ещё раз'; b.addEventListener('click', start); opts.append(b);
+  msg('', '');
+}
+
+// Arabic speech, when the device has an Arabic voice.
+let canSpeak = false, arVoice = null;
+function findVoice() {
+  if (!('speechSynthesis' in window)) return;
+  arVoice = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith('ar')) || null;
+  canSpeak = !!arVoice;
+  if (order.length && i < order.length) $('speakBtn').hidden = !canSpeak || (!locked && order[i].kind === 'tr');
+}
+if ('speechSynthesis' in window) { findVoice(); speechSynthesis.addEventListener?.('voiceschanged', findVoice); }
+$('speakBtn').addEventListener('click', () => {
+  if (!canSpeak || !order.length) return;
+  const u = new SpeechSynthesisUtterance(good(order[i].it)); u.voice = arVoice; u.lang = arVoice.lang; u.rate = .8;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+});
+
+const modeBtns = [...document.querySelectorAll('[data-mode]')];
+function paintMode() { modeBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode)); }
+modeBtns.forEach(b => b.addEventListener('click', () => { mode = b.dataset.mode; setPref('mode', mode); paintMode(); start(); }));
+paintMode();
+$('restartBtn').addEventListener('click', start);
+$('nextBtn').addEventListener('click', next);
+$('hintBtn').addEventListener('click', hint);
+$('goBtn').addEventListener('click', () => { $('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' }); start(); });
+
+// Side menu: highlight the section in view.
+const navLinks = [...document.querySelectorAll('.nav a')];
+navLinks.forEach(a => a.addEventListener('click', () => { navLinks.forEach(x => x.classList.toggle('on', x === a)); if (a.hash === '#cheat') $('cheat').open = true; }));
+
+// Word picker: chosen words are remembered on this device.
+// First visit, or a saved list that no longer fits: all words are chosen.
+let saved = null;
+try { saved = JSON.parse(pref('picked7', 'null')); } catch (e) {}
+const fits = Array.isArray(saved) && saved.every(k => Number.isInteger(k) && k >= 0 && k < ITEMS.length);
+let picked = new Set(fits ? saved : ITEMS.keys());
+const chipsEl = $('words');
+ITEMS.forEach((it, k) => {
+  const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.dataset.k = k;
+  c.dataset.find = (it.ru + ' ' + good(it) + ' ' + good(it).replace(/[ً-ْ]/g, '')).toLowerCase();
+  const b = document.createElement('b'); b.lang = 'ar'; b.dir = 'rtl'; b.append(...parts(it));
+  c.append(b, document.createTextNode(it.ru));
+  // While every word is on, a tap means "I want this one": keep only it. After that, taps add or remove.
+  c.addEventListener('click', () => {
+    if (picked.size === ITEMS.length) picked = new Set([k]);
+    else picked.has(k) ? picked.delete(k) : picked.add(k);
+    savePicked();
+  });
+  (it.chain ? $('chipsChain') : it.dom ? $('chipsDom') : $('chips')).append(c);
+});
+function savePicked() {
+  setPref('picked7', JSON.stringify([...picked]));
+  chipsEl.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', picked.has(+c.dataset.k)));
+  $('pickCount').textContent = `выбрано ${picked.size} из ${ITEMS.length}`;
+  start();
+}
+$('allBtn').addEventListener('click', () => { picked = new Set(ITEMS.keys()); savePicked(); });
+$('noneBtn').addEventListener('click', () => { picked = new Set(); savePicked(); });
+
+// Search filters the word cards (Russian or Arabic, with or without vowels).
+$('search').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase().replace(/[ً-ْ]/g, '');
+  chipsEl.querySelectorAll('.chip').forEach(c => { c.hidden = !!q && !c.dataset.find.includes(q); });
+  if (q) $('words').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+savePicked();
+</script>
+</body>
+</html>
