@@ -117,7 +117,7 @@ details.cheat summary::-webkit-details-marker { display: none; }
   </nav>
 
   <section class="card quiz" aria-live="polite">
-    <div class="qtop"><span><b id="pos">1</b> / <span id="total">10</span></span><span class="bar"><i id="bar"></i></span><span class="score">★ <span id="score">0</span></span></div>
+    <div class="qtop"><span><b id="pos">1</b> / <span id="total">12</span></span><span class="bar"><i id="bar"></i></span><span class="score">★ <span id="score">0</span></span></div>
     <div id="body">
       <p class="ask" id="ask"></p>
       <div class="clockbox" id="clockbox"></div>
@@ -204,9 +204,8 @@ let mode = 'read', qs = [], i = 0, score = 0, timer = 0;
 function build() {
   if (mode === 'mix') {
     const kinds = ['read', 'find', 'ru'];
-    qs = pick(HOURS, 10).map((x, k) => make(kinds[k % 3], x));
-    qs = shuffle(qs);
-  } else qs = pick(HOURS, 10).map(x => make(mode, x));
+    qs = shuffle(HOURS).map((x, k) => make(kinds[k % 3], x));
+  } else qs = shuffle(HOURS).map(x => make(mode, x));
   i = 0; score = 0; render();
 }
 function render() {
