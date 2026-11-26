@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Вопросительные местоимения</title>
+<meta property="og:title" content="Вопросительные местоимения">
+<meta property="og:description" content="Короткая викторина по 9-му уроку нахву: أَدَوَاتُ الِاسْتِفْهَامِ.">
+<meta name="description" content="Короткая викторина по 9-му уроку нахву: вопросительные слова (أَدَوَاتُ الِاسْتِفْهَامِ).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Lora:wght@600;700&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Same emerald and gold palette as the idafa quiz. */
+:root {
+  --bg: #04110D; --panel: #0A1F18; --panel-2: #0E2A21; --ink: #EEF0E6; --muted: #98AFA4;
+  --line: rgba(214, 178, 104, .28); --line-soft: rgba(214, 178, 104, .14);
+  --gold: #E4BE72; --ok: #3BE3A0; --bad: #F2675C; --harf: #F0C675; --ism: #5FE0B6;
+  --ar: "Scheherazade New", "Amiri", "Geeza Pro", serif;
+  --serif: "Lora", Georgia, serif;
+  --body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); font: 400 16px/1.5 var(--body); -webkit-font-smoothing: antialiased;
+  padding: max(20px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D6B268' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M40 4 50 30 76 40 50 50 40 76 30 50 4 40 30 30Z'/%3E%3Cpath d='M40 18 58 22 62 40 58 58 40 62 22 58 18 40 22 22Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(1200px 600px at 70% -10%, #0F3328 0%, transparent 60%), var(--bg); background-attachment: fixed; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+main { max-width: 680px; margin: 0 auto; display: grid; gap: 16px; }
+.card { background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+
+.basmala { margin: 0; text-align: center; font: 700 26px/1.8 var(--ar); color: var(--gold); }
+header { text-align: center; padding: 20px 18px 18px; }
+header .k { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+header .ar { display: block; margin: 4px 0 0; font: 700 44px/1.6 var(--ar); color: var(--gold); text-shadow: 0 0 18px rgba(228, 190, 114, .3); }
+header h1 { margin: 0; font: 600 26px/1.25 var(--serif); }
+
+.modes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.modes button { padding: 10px 6px; border-radius: 14px; border: 1px solid var(--line-soft); background: rgba(0, 0, 0, .2); color: var(--muted); font-size: 14px; font-weight: 500; line-height: 1.25; }
+.modes button.on { color: var(--ink); border-color: var(--gold); background: rgba(228, 190, 114, .12); box-shadow: 0 0 0 1px var(--gold) inset; }
+
+.quiz { padding: 18px 20px 20px; }
+.qtop { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); }
+.bar { flex: 1; height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--ok)); transition: width .3s; }
+.score { color: var(--gold); font-weight: 600; }
+.ask { margin: 16px 0 4px; text-align: center; color: var(--muted); font-size: 15px; }
+.word { margin: 0; text-align: center; font: 700 54px/1.7 var(--ar); color: var(--ink); min-height: 92px; }
+.word .gap { display: inline-block; min-width: 2.2em; border-bottom: 3px dashed var(--gold); color: var(--gold); }
+.trans { margin: 0 0 12px; text-align: center; color: var(--muted); font-size: 16px; min-height: 24px; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opts button { min-height: 62px; padding: 8px 12px; border-radius: 16px; border: 1px solid var(--line); background: rgba(0, 0, 0, .22); font-size: 17px; font-weight: 500; }
+.opts button.ar { font: 700 30px/1.5 var(--ar); }
+.opts button:hover:not(:disabled) { border-color: var(--gold); }
+.opts button.ok { border-color: var(--ok); background: rgba(59, 227, 160, .22); color: #fff; box-shadow: 0 0 0 2px var(--ok), 0 0 22px rgba(59, 227, 160, .55); }
+.opts button.bad { border-color: var(--bad); background: rgba(242, 103, 92, .18); }
+.opts button:disabled { cursor: default; }
+.opts button:disabled:not(.ok):not(.bad) { opacity: .5; }
+.msg { min-height: 30px; margin: 12px 0 0; text-align: center; font-weight: 600; }
+.msg.ok { color: var(--ok); } .msg.bad { color: var(--bad); }
+.msg .praise { font: 700 28px/1.2 var(--ar); }
+.row { display: flex; justify-content: center; margin-top: 10px; }
+.next { padding: 10px 26px; border-radius: 99px; border: 1px solid var(--gold); background: rgba(228, 190, 114, .14); font-weight: 600; }
+.next[hidden] { display: none; }
+.done { text-align: center; padding: 10px 0 4px; }
+.done b { display: block; font: 700 40px/1.3 var(--serif); color: var(--gold); }
+
+details.cheat summary { list-style: none; cursor: pointer; padding: 16px 20px; font: 600 20px/1.3 var(--serif); }
+details.cheat summary::-webkit-details-marker { display: none; }
+.cheat-body { padding: 0 20px 18px; }
+.cheat h3 { margin: 14px 0 6px; font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.cheat h3.harf { color: var(--harf); } .cheat h3.ism { color: var(--ism); }
+.cheat table { width: 100%; border-collapse: collapse; }
+.cheat td { padding: 6px 4px; border-top: 1px solid var(--line-soft); vertical-align: middle; font-size: 15px; }
+.cheat td.a { font: 700 26px/1.5 var(--ar); text-align: right; white-space: nowrap; width: 1%; padding-left: 14px; }
+.cheat td.ex { font: 400 20px/1.5 var(--ar); text-align: right; color: var(--muted); }
+
+@media (max-width: 520px) {
+  .modes { grid-template-columns: 1fr 1fr; }
+  .word { font-size: 42px; min-height: 76px; }
+  .opts button.ar { font-size: 26px; }
+  .cheat td.ex { display: none; }
+}
+</style>
+</head>
+<body>
+<main>
+  <p class="basmala" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+  <header class="card">
+    <span class="k">Нахв · Урок 9</span>
+    <span class="ar" lang="ar" dir="rtl">أَدَوَاتُ الِاسْتِفْهَامِ</span>
+    <h1>Вопросительные местоимения</h1>
+  </header>
+
+  <nav class="modes" aria-label="Режим">
+    <button data-mode="mean" class="on">Что значит?</button>
+    <button data-mode="fill">Вставь слово</button>
+    <button data-mode="kind">Харф или исм?</button>
+    <button data-mode="mix">Всё вместе</button>
+  </nav>
+
+  <section class="card quiz" aria-live="polite">
+    <div class="qtop"><span><b id="pos">1</b> / <span id="total">10</span></span><span class="bar"><i id="bar"></i></span><span class="score">★ <span id="score">0</span></span></div>
+    <div id="body">
+      <p class="ask" id="ask"></p>
+      <p class="word" id="word" lang="ar" dir="rtl"></p>
+      <p class="trans" id="trans"></p>
+      <div class="opts" id="opts"></div>
+      <p class="msg" id="msg"></p>
+      <div class="row"><button class="next" id="next" hidden>Далее</button></div>
+    </div>
+  </section>
+
+  <details class="card cheat">
+    <summary>Шпаргалка</summary>
+    <div class="cheat-body">
+      <h3 class="harf">Харфы вопроса · حَرْفَا الِاسْتِفْهَامِ</h3>
+      <table>
+        <tr><td class="a" lang="ar">هَلْ / أَ</td><td>ли? — вопрос «да или нет»</td><td class="ex" lang="ar" dir="rtl">هَلْ هٰذَا قَلَمٌ؟ أَأَنْتَ فَعَلْتَ هٰذَا؟</td></tr>
+      </table>
+      <h3 class="ism">Исмы вопроса · أَسْمَاءُ الِاسْتِفْهَامِ</h3>
+      <table id="cheatIsm"></table>
+    </div>
+  </details>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+// Question words of lesson 9. h = harf (particle), otherwise ism.
+const WORDS = [
+  { a: 'هَلْ', ru: 'ли? (да или нет)', h: true },
+  { a: 'أَ', ru: 'ли? (да или нет)', h: true },
+  { a: 'مَا / مَاذَا', ru: 'что?', ex: 'مَا هٰذَا؟ مَا دِينُكَ؟' },
+  { a: 'مَنْ', ru: 'кто?', ex: 'مَنْ رَبُّكَ؟' },
+  { a: 'لِمَنْ', ru: 'чей? для кого?', ex: 'لِمَنْ هٰذَا؟ هٰذَا لِي' },
+  { a: 'مَتَى', ru: 'когда?', ex: 'مَتَى الدَّرْسُ؟' },
+  { a: 'أَيَّانَ', ru: 'когда? (о важном, далёком)', ex: 'أَيَّانَ يَوْمُ الْقِيَامَةِ؟' },
+  { a: 'كَيْفَ', ru: 'как? каков?', ex: 'كَيْفَ حَالُكَ؟' },
+  { a: 'أَيْنَ', ru: 'где?', ex: 'أَيْنَ الْكِتَابُ؟' },
+  { a: 'مِنْ أَيْنَ', ru: 'откуда?', ex: 'مِنْ أَيْنَ أَنْتَ؟' },
+  { a: 'إِلَى أَيْنَ', ru: 'куда?', ex: 'إِلَى أَيْنَ تَذْهَبُ؟' },
+  { a: 'لِمَ / لِمَاذَا', ru: 'почему? зачем?', ex: 'لِمَاذَا تَدْرُسُ؟' },
+  { a: 'كَمْ', ru: 'сколько?', ex: 'كَمْ طَالِبًا فِي الْفَصْلِ؟' },
+  { a: 'أَيُّ', ru: 'какой? который?', ex: 'أَيُّ كِتَابٍ هٰذَا؟' },
+];
+// Fill-in questions: q has ___ where the word goes, w = the answer, no = other words that would also fit.
+const FILL = [
+  { q: '___ هٰذَا قَلَمٌ؟', w: 'هَلْ', ru: 'Это ручка?', no: ['أَ'] },
+  { q: '___أَنْتَ فَعَلْتَ هٰذَا؟', w: 'أَ', ru: 'Ты сделал это?', no: ['هَلْ'] },
+  { q: '___ هٰذَا؟', w: 'مَا', ru: 'Что это?', no: ['مَاذَا', 'مَنْ', 'لِمَنْ'] },
+  { q: '___ رَبُّكَ؟', w: 'مَنْ', ru: 'Кто твой Господь?', no: [] },
+  { q: '___ هٰذَا الْكِتَابُ؟', w: 'لِمَنْ', ru: 'Чья эта книга?', no: ['مَا', 'أَيْنَ'] },
+  { q: '___ الدَّرْسُ؟', w: 'مَتَى', ru: 'Когда урок?', no: ['أَيَّانَ', 'أَيْنَ', 'مَا', 'كَيْفَ'] },
+  { q: '___ يَوْمُ الْقِيَامَةِ؟', w: 'أَيَّانَ', ru: 'Когда наступит День воскресения?', no: ['مَتَى', 'مَا'] },
+  { q: '___ حَالُكَ؟', w: 'كَيْفَ', ru: 'Как твои дела?', no: ['مَا'] },
+  { q: '___ الْكِتَابُ؟', w: 'أَيْنَ', ru: 'Где книга?', no: ['مَا', 'لِمَنْ', 'كَيْفَ'] },
+  { q: '___ أَنْتَ؟', w: 'مِنْ أَيْنَ', ru: 'Откуда ты?', no: ['مَنْ', 'أَيْنَ', 'كَيْفَ', 'مَا'] },
+  { q: '___ تَذْهَبُ؟', w: 'إِلَى أَيْنَ', ru: 'Куда ты идёшь?', no: ['لِمَاذَا', 'مَتَى', 'أَيْنَ', 'كَيْفَ', 'هَلْ', 'مِنْ أَيْنَ'] },
+  { q: '___ تَدْرُسُ؟', w: 'لِمَاذَا', ru: 'Зачем ты учишься?', no: ['لِمَ', 'مَاذَا', 'أَيْنَ', 'مَتَى', 'كَيْفَ', 'هَلْ'] },
+  { q: '___ طَالِبًا فِي الْفَصْلِ؟', w: 'كَمْ', ru: 'Сколько студентов в классе?', no: [] },
+  { q: '___ كِتَابٍ هٰذَا؟', w: 'أَيُّ', ru: 'Какая это книга?', no: [] },
+];
+// Single words for the fill-in options (split the "x / y" pairs).
+const FILL_POOL = ['هَلْ', 'أَ', 'مَا', 'مَنْ', 'لِمَنْ', 'مَتَى', 'أَيَّانَ', 'كَيْفَ', 'أَيْنَ', 'مِنْ أَيْنَ', 'إِلَى أَيْنَ', 'لِمَاذَا', 'كَمْ', 'أَيُّ'];
+
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = (arr, n) => shuffle(arr).slice(0, n);
+
+$('cheatIsm').innerHTML = WORDS.filter(w => !w.h).map(w => `<tr><td class="a" lang="ar">${w.a}</td><td>${w.ru}</td><td class="ex" lang="ar" dir="rtl">${w.ex}</td></tr>`).join('');
+
+function makeMean(w) {
+  const others = pick([...new Set(WORDS.filter(x => x.ru !== w.ru).map(x => x.ru))], 3);
+  return { ask: 'Что значит это слово?', word: w.a, trans: '', ar: false, good: w.ru, opts: shuffle([w.ru, ...others]),
+    why: `${w.a} — ${w.ru}` };
+}
+function makeFill(f) {
+  const others = pick(FILL_POOL.filter(x => x !== f.w && !f.no.includes(x)), 3);
+  const q = f.q.replace('___', '<span class="gap">؟</span>');
+  return { ask: 'Вставь вопросительное слово', word: q, html: true, trans: '«' + f.ru + '»', ar: true, good: f.w, opts: shuffle([f.w, ...others]),
+    why: f.q.replace('___', f.w) };
+}
+function makeKind(w) {
+  return { ask: 'Это харф или исм?', word: w.a, trans: w.ru, ar: false, good: w.h ? 'Харф' : 'Исм', opts: ['Харф', 'Исм'],
+    why: w.h ? 'هَلْ и أَ — харфы вопроса (вопрос «да или нет»)' : 'Все остальные вопросительные слова — исмы' };
+}
+
+let mode = 'mean', qs = [], i = 0, score = 0, timer = 0;
+function build() {
+  const kinds = [];
+  if (mode === 'mean') pick(WORDS, 10).forEach(w => kinds.push(makeMean(w)));
+  if (mode === 'fill') pick(FILL, 10).forEach(f => kinds.push(makeFill(f)));
+  if (mode === 'kind') {
+    const harfs = WORDS.filter(w => w.h), isms = pick(WORDS.filter(w => !w.h), 6);
+    shuffle([...harfs, ...isms]).forEach(w => kinds.push(makeKind(w)));
+  }
+  if (mode === 'mix') {
+    pick(WORDS, 4).forEach(w => kinds.push(makeMean(w)));
+    pick(FILL, 4).forEach(f => kinds.push(makeFill(f)));
+    pick(WORDS, 2).forEach(w => kinds.push(makeKind(w)));
+  }
+  qs = mode === 'mix' ? shuffle(kinds) : kinds;
+  i = 0; score = 0; render();
+}
+function render() {
+  clearTimeout(timer);
+  $('total').textContent = qs.length; $('score').textContent = score;
+  $('bar').style.width = (i / qs.length * 100) + '%';
+  if (i >= qs.length) {
+    $('body').innerHTML = `<div class="done"><b>${score} / ${qs.length}</b><p>${score === qs.length ? 'Все ответы верные!' : 'Хорошая работа. Попробуй ещё раз.'}</p><div class="row"><button class="next" id="again">Ещё раз</button></div></div>`;
+    $('again').onclick = () => { restoreBody(); build(); };
+    return;
+  }
+  const q = qs[i];
+  $('pos').textContent = i + 1;
+  $('ask').textContent = q.ask;
+  if (q.html) $('word').innerHTML = q.word; else $('word').textContent = q.word;
+  $('trans').textContent = q.trans;
+  $('msg').textContent = ''; $('msg').className = 'msg';
+  $('next').hidden = true;
+  const box = $('opts'); box.innerHTML = '';
+  q.opts.forEach(o => {
+    const b = document.createElement('button');
+    b.textContent = o;
+    if (q.ar) { b.className = 'ar'; b.lang = 'ar'; b.dir = 'rtl'; }
+    b.onclick = () => answer(b, o);
+    box.appendChild(b);
+  });
+}
+function answer(btn, o) {
+  const q = qs[i], ok = o === q.good;
+  [...$('opts').children].forEach(b => { b.disabled = true; if (b.textContent === q.good) b.classList.add('ok'); });
+  const m = $('msg');
+  if (ok) {
+    score++; $('score').textContent = score;
+    m.className = 'msg ok'; m.innerHTML = '';
+    const p = document.createElement('span'); p.className = 'praise'; p.lang = 'ar'; p.dir = 'rtl'; p.textContent = 'مُمْتَاز!';
+    m.appendChild(p);
+    if (q.html) $('word').innerHTML = q.word.replace('<span class="gap">؟</span>', '<span class="gap">' + q.good + '</span>');
+    timer = setTimeout(() => { i++; render(); }, 1800);
+  } else {
+    btn.classList.add('bad');
+    m.className = 'msg bad'; m.textContent = 'Правильно: ' + q.why;
+    if (q.html) $('word').innerHTML = q.word.replace('<span class="gap">؟</span>', '<span class="gap">' + q.good + '</span>');
+  }
+  $('next').hidden = false;
+}
+const BODY = $('body').innerHTML;
+function restoreBody() { $('body').innerHTML = BODY; $('next').onclick = () => { i++; render(); }; }
+$('next').onclick = () => { i++; render(); };
+document.querySelectorAll('.modes button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.modes button').forEach(x => x.classList.toggle('on', x === b));
+  mode = b.dataset.mode; restoreBody(); build();
+});
+build();
+</script>
+</body>
+</html>
