@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Диалоги в парах — الْحِوَارُ</title>
+<meta property="og:title" content="Диалоги в парах — الْحِوَارُ">
+<meta property="og:description" content="Короткие диалоги на арабском для практики вдвоём по звонку.">
+<meta name="description" content="Короткие диалоги на арабском для практики вдвоём по звонку.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Lora:wght@600;700&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Same emerald and gold palette as the other quizzes. */
+:root {
+  --bg: #04110D; --panel: #0A1F18; --panel-2: #0E2A21; --ink: #EEF0E6; --muted: #98AFA4;
+  --line: rgba(214, 178, 104, .28); --line-soft: rgba(214, 178, 104, .14);
+  --gold: #E4BE72; --ok: #3BE3A0; --bad: #F2675C; --harf: #F0C675; --ism: #5FE0B6;
+  --ar: "Scheherazade New", "Amiri", "Geeza Pro", serif;
+  --serif: "Lora", Georgia, serif;
+  --body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); font: 400 16px/1.5 var(--body); -webkit-font-smoothing: antialiased;
+  padding: max(20px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D6B268' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M40 4 50 30 76 40 50 50 40 76 30 50 4 40 30 30Z'/%3E%3Cpath d='M40 18 58 22 62 40 58 58 40 62 22 58 18 40 22 22Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(1200px 600px at 70% -10%, #0F3328 0%, transparent 60%), var(--bg); background-attachment: fixed; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+main { max-width: 680px; margin: 0 auto; display: grid; gap: 16px; }
+.card { background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+
+.basmala { margin: 0; text-align: center; font: 700 26px/1.8 var(--ar); color: var(--gold); }
+header { text-align: center; padding: 20px 18px 18px; }
+header .k { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+header .ar { display: block; margin: 4px 0 0; font: 700 44px/1.6 var(--ar); color: var(--gold); text-shadow: 0 0 18px rgba(228, 190, 114, .3); }
+header h1 { margin: 0; font: 600 26px/1.25 var(--serif); }
+
+.modes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.modes button { padding: 10px 6px; border-radius: 14px; border: 1px solid var(--line-soft); background: rgba(0, 0, 0, .2); color: var(--muted); font-size: 14px; font-weight: 500; line-height: 1.25; }
+.modes button.on { color: var(--ink); border-color: var(--gold); background: rgba(228, 190, 114, .12); box-shadow: 0 0 0 1px var(--gold) inset; }
+
+.quiz { padding: 18px 20px 20px; }
+.qtop { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); }
+.bar { flex: 1; height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--ok)); transition: width .3s; }
+.score { color: var(--gold); font-weight: 600; }
+.ask { margin: 16px 0 4px; text-align: center; color: var(--muted); font-size: 15px; }
+.word { margin: 0; text-align: center; font: 700 54px/1.7 var(--ar); color: var(--ink); min-height: 92px; }
+.word .gap { display: inline-block; min-width: 2.2em; border-bottom: 3px dashed var(--gold); color: var(--gold); }
+.trans { margin: 0 0 12px; text-align: center; color: var(--muted); font-size: 16px; min-height: 24px; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opts button { min-height: 62px; padding: 8px 12px; border-radius: 16px; border: 1px solid var(--line); background: rgba(0, 0, 0, .22); font-size: 17px; font-weight: 500; }
+.opts button.ar { font: 700 30px/1.5 var(--ar); }
+.opts button:hover:not(:disabled) { border-color: var(--gold); }
+.opts button.ok { border-color: var(--ok); background: rgba(59, 227, 160, .22); color: #fff; box-shadow: 0 0 0 2px var(--ok), 0 0 22px rgba(59, 227, 160, .55); }
+.opts button.bad { border-color: var(--bad); background: rgba(242, 103, 92, .18); }
+.opts button:disabled { cursor: default; }
+.opts button:disabled:not(.ok):not(.bad) { opacity: .5; }
+.gar { display: block; font: 700 22px/1.5 var(--ar); color: var(--gold); }
+.cheat .gar { display: inline; font-size: 20px; margin-left: 6px; }
+.msg { min-height: 30px; margin: 12px 0 0; text-align: center; font-weight: 600; }
+.msg.ok { color: var(--ok); } .msg.bad { color: var(--bad); }
+.msg .praise { font: 700 28px/1.2 var(--ar); }
+.row { display: flex; justify-content: center; margin-top: 10px; }
+.next { padding: 10px 26px; border-radius: 99px; border: 1px solid var(--gold); background: rgba(228, 190, 114, .14); font-weight: 600; }
+.next[hidden] { display: none; }
+.done { text-align: center; padding: 10px 0 4px; }
+.done b { display: block; font: 700 40px/1.3 var(--serif); color: var(--gold); }
+
+details.cheat summary { list-style: none; cursor: pointer; padding: 16px 20px; font: 600 20px/1.3 var(--serif); }
+details.cheat summary::-webkit-details-marker { display: none; }
+.cheat-body { padding: 0 20px 18px; }
+.cheat h3 { margin: 14px 0 6px; font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.cheat h3.harf { color: var(--harf); } .cheat h3.ism { color: var(--ism); }
+.cheat table { width: 100%; border-collapse: collapse; }
+.cheat td { padding: 6px 4px; border-top: 1px solid var(--line-soft); vertical-align: middle; font-size: 15px; }
+.cheat td.a { font: 700 26px/1.5 var(--ar); text-align: right; white-space: nowrap; width: 1%; padding-left: 14px; }
+.cheat td.ex { font: 400 20px/1.5 var(--ar); text-align: right; color: var(--muted); }
+
+@media (max-width: 520px) {
+  .modes { grid-template-columns: 1fr 1fr; }
+  .word { font-size: 42px; min-height: 76px; }
+  .opts button.ar { font-size: 26px; }
+  .cheat td.ex { display: none; }
+}
+[hidden] { display: none !important; }
+.how { padding: 16px 20px; font-size: 15px; }
+.how ol { margin: 8px 0 0; padding-left: 20px; color: var(--muted); }
+.how li { margin: 4px 0; }
+.sec { margin: 4px 4px 10px; font: 600 20px/1.3 var(--serif); }
+.list { display: grid; gap: 10px; }
+.item { display: flex; align-items: center; gap: 14px; padding: 14px 18px; text-align: left; }
+.item:hover { border-color: var(--gold); }
+.item .n { width: 34px; height: 34px; flex: none; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--gold); color: var(--gold); font-weight: 600; }
+.item b { display: block; font-size: 17px; font-weight: 600; }
+.item small { display: block; font: 400 18px/1.5 var(--ar); color: var(--muted); text-align: left; }
+.item .go { margin-left: auto; color: var(--gold); font-size: 20px; }
+.dlg { padding: 16px 16px 20px; display: grid; gap: 12px; }
+.dtop { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.back { border: 1px solid var(--line); background: rgba(0, 0, 0, .2); border-radius: 99px; padding: 8px 14px; font-size: 14px; color: var(--muted); }
+.dtitle { font: 600 20px/1.3 var(--serif); }
+.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.roles button { padding: 10px 6px; border-radius: 14px; border: 1px solid var(--line-soft); background: rgba(0, 0, 0, .2); color: var(--muted); font-size: 14px; font-weight: 500; }
+.roles button.on { color: var(--ink); border-color: var(--gold); background: rgba(228, 190, 114, .12); box-shadow: 0 0 0 1px var(--gold) inset; }
+.tip { margin: 0; font-size: 14px; color: var(--muted); text-align: center; }
+.chat { display: grid; gap: 10px; }
+.line { display: grid; gap: 3px; max-width: 86%; transition: opacity .2s; }
+.line.me { justify-self: end; } .line.you { justify-self: start; }
+.line.later { opacity: .45; }
+.who { font-size: 12px; color: var(--muted); }
+.line.me .who { text-align: right; }
+.bub { border-radius: 16px; padding: 6px 14px 10px; border: 1px solid var(--line-soft); background: rgba(0, 0, 0, .25); }
+.line.me .bub { border-color: rgba(228, 190, 114, .45); background: rgba(228, 190, 114, .1); }
+.line.now .bub { box-shadow: 0 0 0 2px var(--gold), 0 0 22px rgba(228, 190, 114, .25); }
+.line.done .bub { border-color: rgba(59, 227, 160, .35); }
+.bub .ar { margin: 0; font: 700 30px/1.8 var(--ar); text-align: right; }
+.line.me .bub .ar { color: #F6E7C6; }
+.bub .ru { margin: 0; font-size: 14px; color: var(--muted); }
+.bub .ru.big { font-size: 18px; color: var(--ink); padding: 8px 0 2px; }
+.bub button { margin: 8px 6px 0 0; padding: 7px 14px; border-radius: 99px; font-size: 14px; font-weight: 600; }
+.said { border: 1px solid var(--ok); background: rgba(59, 227, 160, .15); color: var(--ok); }
+.hint { border: 1px solid var(--line); background: rgba(0, 0, 0, .2); color: var(--gold); }
+.end { margin: 4px 0 0; text-align: center; color: var(--ok); font-weight: 600; }
+.end span { font: 700 26px var(--ar); }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.next { text-decoration: none; display: inline-block; }
+.wa { border-color: #25D366; color: #fff; background: rgba(37, 211, 102, .2); }
+@media (max-width: 520px) { .bub .ar { font-size: 26px; } .line { max-width: 94%; } }
+</style>
+</head>
+<body>
+<main>
+  <p class="basmala" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+  <header class="card">
+    <span class="k">Практика в парах</span>
+    <span class="ar" lang="ar" dir="rtl">الْحِوَارُ</span>
+    <h1>Диалоги</h1>
+  </header>
+
+  <section class="card how">
+    <b>Как заниматься вдвоём</b>
+    <ol>
+      <li>Созвонитесь в WhatsApp.</li>
+      <li>Выберите роль. Кнопкой «Отправить партнёру» перешлите ей ссылку: у неё сразу откроется диалог с другой ролью.</li>
+      <li>Говорите по очереди. Свои строки — справа, золотые. После своей фразы нажмите «Сказала ✓».</li>
+      <li>Потом поменяйтесь ролями.</li>
+    </ol>
+  </section>
+
+  <section id="pickView">
+    <h2 class="sec">Выбери диалог</h2>
+    <div class="list" id="list"></div>
+  </section>
+
+  <section id="dlgView" hidden>
+    <div class="card dlg">
+      <div class="dtop">
+        <button class="back" id="backBtn">← Все диалоги</button>
+        <span class="dtitle" id="dTitle"></span>
+      </div>
+      <div class="roles" role="group" aria-label="Роль">
+        <button data-role="A">Я начинаю · А</button>
+        <button data-role="B">Я отвечаю · Б</button>
+      </div>
+      <div class="roles" role="group" aria-label="Уровень">
+        <button data-level="read">Читаю по-арабски</button>
+        <button data-level="memory">Говорю по памяти</button>
+      </div>
+      <p class="tip" id="tip"></p>
+      <div class="chat" id="chat"></div>
+      <p class="end" id="end" hidden><span lang="ar" dir="rtl">مُمْتَاز!</span> Диалог пройден. Поменяйтесь ролями и повторите.</p>
+      <div class="acts">
+        <button class="next" id="swapBtn">Поменяться ролями</button>
+        <button class="next" id="againBtn">Сначала</button>
+        <a class="next wa" id="shareBtn" target="_blank" rel="noopener">Отправить партнёру в WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+// Dialogues for two partners, A starts. Built only from words of our lessons and quizzes.
+// The partner is addressed as a woman (ـكِ, أَنْتِ), since the group is women.
+const DIALOGS = [
+  // From the picture in the group: Хавля и Хадиджа.
+  { t: 'Знакомство: Хавля и Хадиджа', s: 'السَّلَامُ، مَا اسْمُكِ، كَيْفَ حَالُكِ', who: ['Хавля', 'Хадиджа'], lines: [
+    ['السَّلَامُ عَلَيْكُمْ.', 'Мир вам!'],
+    ['وَعَلَيْكُمُ السَّلَامُ.', 'И вам мир!'],
+    ['اِسْمِي خَوْلَة، مَا اسْمُكِ؟', 'Моё имя Хавля, как тебя зовут?'],
+    ['اِسْمِي خَدِيجَة.', 'Моё имя Хадиджа.'],
+    ['كَيْفَ حَالُكِ؟', 'Как твои дела?'],
+    ['بِخَيْرٍ، وَالْحَمْدُ لِلَّهِ. وَكَيْفَ حَالُكِ أَنْتِ؟', 'Хорошо, хвала Аллаху! А как твои дела?'],
+    ['بِخَيْرٍ، وَالْحَمْدُ لِلَّهِ.', 'Хорошо, хвала Аллаху!'],
+  ] },
+];
+
+let d = 0, role = 'A', level = 'read', step = 0;
+const shown = new Set();
+
+DIALOGS.forEach((x, k) => {
+  const b = document.createElement('button'); b.className = 'card item';
+  b.innerHTML = `<span class="n">${k + 1}</span><span><b>${x.t}</b><small lang="ar" dir="rtl">${x.s}</small></span><span class="go">→</span>`;
+  b.onclick = () => open(k, 'A');
+  $('list').append(b);
+});
+
+function open(k, r) {
+  d = k; role = r; step = 0; shown.clear();
+  $('pickView').hidden = true; $('dlgView').hidden = false;
+  paint(); window.scrollTo({ top: $('dlgView').offsetTop - 10, behavior: 'smooth' });
+}
+const mine = i => (i % 2 === 0) === (role === 'A');
+
+function paint() {
+  const x = DIALOGS[d];
+  $('dTitle').textContent = (d + 1) + '. ' + x.t;
+  document.querySelectorAll('[data-role]').forEach(b => { b.classList.toggle('on', b.dataset.role === role);
+    const nm = x.who ? x.who[b.dataset.role === 'A' ? 0 : 1] : (b.dataset.role === 'A' ? 'А' : 'Б');
+    b.textContent = (b.dataset.role === 'A' ? 'Я начинаю · ' : 'Я отвечаю · ') + nm; });
+  document.querySelectorAll('[data-level]').forEach(b => b.classList.toggle('on', b.dataset.level === level));
+  $('tip').textContent = level === 'read'
+    ? 'Читай свои строки вслух. Строки партнёра слева — следи и проверяй её.'
+    : 'Свои строки вспоминай по переводу. Не получилось — нажми «Подсказка».';
+  const chat = $('chat'); chat.replaceChildren();
+  x.lines.forEach(([ar, ru], i) => {
+    const me = mine(i), row = document.createElement('div');
+    row.className = 'line ' + (me ? 'me' : 'you') + (i === step ? ' now' : '') + (i < step ? ' done' : '') + (i > step ? ' later' : '');
+    const who = document.createElement('span'); who.className = 'who';
+    who.textContent = (me ? 'Ты' : 'Партнёр') + ' · ' + (x.who ? x.who[i % 2] : (i % 2 === 0 ? 'А' : 'Б'));
+    const bub = document.createElement('div'); bub.className = 'bub';
+    const hide = me && level === 'memory' && !shown.has(i) && i >= step;
+    const a = document.createElement('p'); a.className = 'ar'; a.lang = 'ar'; a.dir = 'rtl';
+    a.textContent = hide ? '' : ar;
+    const r = document.createElement('p'); r.className = 'ru'; r.textContent = ru;
+    if (hide) { r.className = 'ru big'; }
+    bub.append(...(hide ? [r] : [a, r]));
+    if (hide && i === step) {
+      const h = document.createElement('button'); h.className = 'hint'; h.textContent = 'Подсказка';
+      h.onclick = () => { shown.add(i); paint(); };
+      bub.append(h);
+    }
+    if (i === step) {
+      const ok = document.createElement('button'); ok.className = 'said';
+      ok.textContent = me ? 'Сказала ✓' : 'Партнёр сказала ✓';
+      ok.onclick = () => { step++; paint(); };
+      bub.append(ok);
+    }
+    row.append(who, bub); chat.append(row);
+  });
+  $('end').hidden = step < x.lines.length;
+  // Link for the partner: same dialogue, the other role.
+  const base = /^https?:$/.test(location.protocol) ? location.origin + location.pathname : 'https://masyaslim-jpg.github.io/arabic/dialogi.html';
+  const url = base + '?d=' + (d + 1) + '&r=' + (role === 'A' ? 'B' : 'A');
+  $('shareBtn').href = 'https://wa.me/?text=' + encodeURIComponent('Диалог «' + x.t + '» — твоя роль: ' + (x.who ? x.who[role === 'A' ? 1 : 0] : (role === 'A' ? 'Б' : 'А')) + ':\n' + url);
+  const now = chat.querySelector('.now'); if (now && step) now.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+
+document.querySelectorAll('[data-role]').forEach(b => b.onclick = () => { role = b.dataset.role; step = 0; shown.clear(); paint(); });
+document.querySelectorAll('[data-level]').forEach(b => b.onclick = () => { level = b.dataset.level; shown.clear(); paint(); });
+$('swapBtn').onclick = () => { role = role === 'A' ? 'B' : 'A'; step = 0; shown.clear(); paint(); };
+$('againBtn').onclick = () => { step = 0; shown.clear(); paint(); };
+$('backBtn').onclick = () => { $('dlgView').hidden = true; $('pickView').hidden = false; history.replaceState(null, '', location.pathname); };
+
+// A link from the partner opens the dialogue straight away: ?d=2&r=B
+const q = new URLSearchParams(location.search), qd = +q.get('d');
+if (qd >= 1 && qd <= DIALOGS.length) open(qd - 1, q.get('r') === 'B' ? 'B' : 'A');
+else if (DIALOGS.length === 1) open(0, q.get('r') === 'B' ? 'B' : 'A');
+if (DIALOGS.length === 1) $('backBtn').hidden = true;
+</script>
+</body>
+</html>
