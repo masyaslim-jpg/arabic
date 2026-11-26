@@ -246,7 +246,7 @@ function answer(btn, o) {
   if (ok) {
     score++; $('score').textContent = score;
     m.className = 'msg ok'; m.innerHTML = '';
-    const p = document.createElement('span'); p.className = 'praise'; p.lang = 'ar'; p.dir = 'rtl'; p.textContent = 'مُمْتَاز!';
+    const p = document.createElement('span'); p.className = 'praise'; p.lang = 'ar'; p.dir = 'rtl'; p.textContent = 'مُمْتَازٌ!';
     m.appendChild(p);
     timer = setTimeout(() => { i++; render(); }, 1800);
   } else {
