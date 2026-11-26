@@ -119,7 +119,7 @@ details.cheat summary::-webkit-details-marker { display: none; }
     <div class="cheat-body">
       <h3 class="harf">Харфы вопроса · حَرْفَا الِاسْتِفْهَامِ</h3>
       <table>
-        <tr><td class="a" lang="ar">هَلْ / أَ</td><td>ли? — вопрос «да или нет»</td><td class="ex" lang="ar" dir="rtl">هَلْ هٰذَا قَلَمٌ؟ أَأَنْتَ فَعَلْتَ هٰذَا؟</td></tr>
+        <tr><td class="a" lang="ar">هَلْ / أَ</td><td>ли? — ответ «да» или «нет»</td><td class="ex" lang="ar" dir="rtl">هَلْ هٰذَا قَلَمٌ؟ أَأَنْتَ فَعَلْتَ هٰذَا؟</td></tr>
       </table>
       <h3 class="ism">Исмы вопроса · أَسْمَاءُ الِاسْتِفْهَامِ</h3>
       <table id="cheatIsm"></table>
@@ -130,8 +130,8 @@ details.cheat summary::-webkit-details-marker { display: none; }
 const $ = id => document.getElementById(id);
 // Question words of lesson 9. h = harf (particle), otherwise ism.
 const WORDS = [
-  { a: 'هَلْ', ru: 'ли? (да или нет)', h: true },
-  { a: 'أَ', ru: 'ли? (да или нет)', h: true },
+  { a: 'هَلْ', ru: 'ли? (ответ: да или нет)', h: true },
+  { a: 'أَ', ru: 'ли? (ответ: да или нет)', h: true },
   { a: 'مَا / مَاذَا', ru: 'что?', ex: 'مَا هٰذَا؟ مَا دِينُكَ؟' },
   { a: 'مَنْ', ru: 'кто?', ex: 'مَنْ رَبُّكَ؟' },
   { a: 'لِمَنْ', ru: 'чей? для кого?', ex: 'لِمَنْ هٰذَا؟ هٰذَا لِي' },
@@ -183,7 +183,7 @@ function makeFill(f) {
 }
 function makeKind(w) {
   return { ask: 'Это харф или исм?', word: w.a, trans: w.ru, ar: false, good: w.h ? 'Харф' : 'Исм', opts: ['Харф', 'Исм'],
-    why: w.h ? 'هَلْ и أَ — харфы вопроса (вопрос «да или нет»)' : 'Все остальные вопросительные слова — исмы' };
+    why: w.h ? 'هَلْ и أَ — харфы вопроса (ответ «да» или «нет»)' : 'Все остальные вопросительные слова — исмы' };
 }
 
 let mode = 'mean', qs = [], i = 0, score = 0, timer = 0;
