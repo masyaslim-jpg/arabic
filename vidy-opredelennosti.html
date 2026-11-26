@@ -59,6 +59,8 @@ header h1 { margin: 0; font: 600 26px/1.25 var(--serif); }
 .opts button.bad { border-color: var(--bad); background: rgba(242, 103, 92, .18); }
 .opts button:disabled { cursor: default; }
 .opts button:disabled:not(.ok):not(.bad) { opacity: .5; }
+.gar { display: block; font: 700 22px/1.5 var(--ar); color: var(--gold); }
+.cheat .gar { display: inline; font-size: 20px; margin-left: 6px; }
 .msg { min-height: 30px; margin: 12px 0 0; text-align: center; font-weight: 600; }
 .msg.ok { color: var(--ok); } .msg.bad { color: var(--bad); }
 .msg .praise { font: 700 28px/1.2 var(--ar); }
@@ -138,15 +140,15 @@ details.cheat summary::-webkit-details-marker { display: none; }
 const $ = id => document.getElementById(id);
 // The five groups of definite nouns from the lesson.
 const GROUPS = [
-  { g: 'Личное местоимение', how: 'участники речи', ex: 'أَنَا، نَحْنُ',
+  { g: 'Личное местоимение', ar: 'الضَّمِيرُ', how: 'участники речи', ex: 'أَنَا، نَحْنُ',
     w: [['أَنَا', 'я'], ['نَحْنُ', 'мы'], ['أَنْتَ', 'ты'], ['هُوَ', 'он'], ['هِيَ', 'она']] },
-  { g: 'Имя с артиклем', how: 'у имени есть артикль ال', ex: 'الْكِتَابُ',
+  { g: 'Имя с артиклем', ar: 'الْمُعَرَّفُ بِأَلْ', how: 'у имени есть артикль ال', ex: 'الْكِتَابُ',
     w: [['الْكِتَابُ', 'книга'], ['الْبَيْتُ', 'дом'], ['الْمُعَلِّمُ', 'учитель'], ['الطَّالِبُ', 'студент'], ['الْمَسْجِدُ', 'мечеть']] },
-  { g: 'Имя собственное', how: 'имя конкретного человека', ex: 'مُحَمَّدٌ، خَدِيجَةُ',
+  { g: 'Имя собственное', ar: 'الْعَلَمُ', how: 'имя конкретного человека', ex: 'مُحَمَّدٌ، خَدِيجَةُ',
     w: [['مُحَمَّدٌ', 'Мухаммад'], ['خَدِيجَةُ', 'Хадиджа'], ['أَحْمَدُ', 'Ахмад'], ['فَاطِمَةُ', 'Фатима'], ['مَرْيَمُ', 'Марьям']] },
-  { g: 'Относительное имя', how: 'после него идёт пояснение', ex: 'الَّذِي، الَّتِي',
+  { g: 'Относительное имя', ar: 'الِاسْمُ الْمَوْصُولُ', how: 'после него идёт пояснение', ex: 'الَّذِي، الَّتِي',
     w: [['الَّذِي', 'который'], ['الَّتِي', 'которая'], ['الَّذِينَ', 'которые (мужчины)'], ['اللَّاتِي', 'которые (женщины)']] },
-  { g: 'Идафа с определённым именем', how: 'второе имя определённое', ex: 'كِتَابُ مُحَمَّدٍ',
+  { g: 'Идафа с определённым именем', ar: 'الْمُضَافُ إِلَى مَعْرِفَةٍ', how: 'второе имя определённое', ex: 'كِتَابُ مُحَمَّدٍ',
     w: [['كِتَابُ مُحَمَّدٍ', 'книга Мухаммада'], ['بَيْتُ الْمُعَلِّمِ', 'дом учителя'], ['بَابُ الْبَيْتِ', 'дверь дома'], ['رَسُولُ اللَّهِ', 'посланник Аллаха'], ['مَسْجِدُ الْمَدِينَةِ', 'мечеть города']] },
 ];
 // Definite or indefinite: d = definite, why = short reason.
@@ -178,15 +180,16 @@ const REL = [
 
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const pick = (arr, n) => shuffle(arr).slice(0, n);
+const GAR = Object.fromEntries(GROUPS.map(G => [G.g, G.ar]));
 const ITEMS = GROUPS.flatMap(G => G.w.map(([a, ru]) => ({ a, ru, G })));
 
-$('cheatGroups').innerHTML = GROUPS.map(G => `<tr><td><b>${G.g}</b><br><span style="color:var(--muted)">${G.how}</span></td><td class="a" lang="ar" dir="rtl">${G.ex}</td></tr>`).join('');
+$('cheatGroups').innerHTML = GROUPS.map(G => `<tr><td><b>${G.g}</b> <span class="gar" lang="ar" dir="rtl">${G.ar}</span><br><span style="color:var(--muted)">${G.how}</span></td><td class="a" lang="ar" dir="rtl">${G.ex}</td></tr>`).join('');
 $('cheatRel').innerHTML = REL.map(r => `<tr><td class="a" lang="ar">${r.a}</td><td>${r.ru} — ${r.who}</td></tr>`).join('');
 
 function makeGroup(it) {
   const others = pick(GROUPS.filter(G => G !== it.G).map(G => G.g), 3);
   return { ask: 'К какой группе относится?', word: it.a, trans: '«' + it.ru + '»', ar: false, good: it.G.g,
-    opts: shuffle([it.G.g, ...others]), why: `${it.G.g} — ${it.G.how}` };
+    opts: shuffle([it.G.g, ...others]), why: `${it.G.g} (\u2067${it.G.ar}\u2069) — ${it.G.how}` };
 }
 function makeDef(d) {
   return { ask: 'Определённое или неопределённое?', word: d.a, trans: '«' + d.ru + '»', ar: false,
@@ -234,7 +237,8 @@ function render() {
   const box = $('opts'); box.innerHTML = '';
   q.opts.forEach(o => {
     const b = document.createElement('button');
-    b.textContent = o;
+    b.textContent = o; b.dataset.v = o;
+    if (GAR[o]) { const s = document.createElement('span'); s.className = 'gar'; s.lang = 'ar'; s.dir = 'rtl'; s.textContent = GAR[o]; b.appendChild(s); }
     if (q.ar) { b.className = 'ar'; b.lang = 'ar'; b.dir = 'rtl'; }
     b.onclick = () => answer(b, o);
     box.appendChild(b);
@@ -242,7 +246,7 @@ function render() {
 }
 function answer(btn, o) {
   const q = qs[i], ok = o === q.good;
-  [...$('opts').children].forEach(b => { b.disabled = true; if (b.textContent === q.good) b.classList.add('ok'); });
+  [...$('opts').children].forEach(b => { b.disabled = true; if (b.dataset.v === q.good) b.classList.add('ok'); });
   const m = $('msg');
   if (ok) {
     score++; $('score').textContent = score;
