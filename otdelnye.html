@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:title" content="Отдельные местоимения — на пальцах">
+<meta property="og:description" content="Викторина: найди арабское местоимение на пальцах руки.">
+<meta name="description" content="Викторина: найди арабское местоимение на пальцах руки.">
+<style>*,*::before,*::after{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Отдельные местоимения — на пальцах</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Lora:wght@600;700&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Emerald and gold, like the other quizzes. One centred hand; each finger carries its person colour, each phalanx one pronoun. */
+:root {
+  --bg: #04110D; --panel: #0A1F18; --panel-2: #0E2A21; --ink: #EEF0E6; --muted: #98AFA4;
+  --line: rgba(214, 178, 104, .28); --line-soft: rgba(214, 178, 104, .14); --gold: #E4BE72;
+  --palm: #163A2E; --surface: #0E2A21; --ok: #3BE3A0; --bad: #F2675C; --on-strong: #04110D; --suf: #F2675C;
+  --p1: #E4BE72; --p2m: #60A5FA; --p2f: #F472B6; --p3m: #5FE0B6; --p3f: #C084FC;
+  --ar: "Scheherazade New", "Amiri", "Geeza Pro", "Noto Naskh Arabic", serif;
+  --serif: "Lora", Georgia, serif;
+  --body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+body { margin: 0; color: var(--ink); font: 400 16px/1.5 var(--body); -webkit-font-smoothing: antialiased;
+  padding: max(20px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) calc(84px + env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D6B268' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M40 4 50 30 76 40 50 50 40 76 30 50 4 40 30 30Z'/%3E%3Cpath d='M40 18 58 22 62 40 58 58 40 62 22 58 18 40 22 22Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(1200px 600px at 70% -10%, #0F3328 0%, transparent 60%), var(--bg); background-attachment: fixed; }
+button { font: inherit; color: inherit; cursor: pointer; }
+main { width: 100%; max-width: 680px; margin: 0 auto; display: grid; gap: 16px; }
+.card { background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+.basmala { margin: 0; text-align: center; font: 700 26px/1.8 var(--ar); color: var(--gold); }
+header { text-align: center; padding: 20px 18px 18px; }
+header .k { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+header .ar { display: block; margin: 4px 0 0; font: 700 40px/1.6 var(--ar); color: var(--gold); text-shadow: 0 0 18px rgba(228, 190, 114, .3); }
+header h1 { margin: 0; font: 600 26px/1.25 var(--serif); }
+.quiz { padding: 18px 16px 20px; display: grid; gap: 10px; justify-items: center; }
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+.modes button { padding: 10px 6px; border-radius: 14px; border: 1px solid var(--line-soft); background: rgba(0, 0, 0, .2); color: var(--muted); font-size: 14px; font-weight: 500; }
+.modes button[aria-pressed="true"] { color: var(--ink); border-color: var(--gold); background: rgba(228, 190, 114, .12); box-shadow: 0 0 0 1px var(--gold) inset; }
+.ask { display: grid; justify-items: center; gap: 10px; min-height: 150px; align-content: center; }
+.ask .label { font-size: 14px; color: var(--muted); }
+.word { font: 700 clamp(48px, 12vw, 64px)/1.7 var(--ar); margin: 0; }
+.word.ru { font: 600 clamp(28px, 7vw, 36px)/1.3 var(--serif); }
+.word .s { color: var(--suf); }
+.trans { font: 500 17px/1.3 var(--body); color: var(--muted); margin: -10px 0 0; min-height: 1.3em; text-align: center; }
+.msg { min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; font-size: 15px; font-weight: 600; text-align: center; margin: 0; color: var(--muted); }
+.msg.ok { color: var(--ok); } .msg.bad { color: var(--bad); }
+.praise { font: 700 28px/1.4 var(--ar); color: var(--ok); vertical-align: middle; }
+.stats { display: flex; gap: 16px; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.stats b { color: var(--gold); }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.tools button { padding: 10px 18px; border-radius: 99px; border: 1px solid var(--line); background: rgba(0, 0, 0, .22); font-size: 14px; font-weight: 500; }
+.tools button[aria-pressed="true"] { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+#restartBtn { border-color: var(--gold); background: rgba(228, 190, 114, .14); font-weight: 600; }
+button:focus-visible, .ph:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+body.loupe-on main { touch-action: none; cursor: zoom-in; }
+/* Floating loupe switch: always in reach, so the page can be scrolled again after turning the loupe off. */
+.fab { position: fixed; z-index: 21; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 8px; font: 600 15px/1 var(--body); padding: 12px 18px; border-radius: 999px;
+  border: 1px solid var(--gold); background: var(--panel-2); color: var(--gold); box-shadow: 0 4px 14px rgb(0 0 0 / .45); }
+.fab svg { width: 18px; height: 18px; fill: currentColor; }
+.fab[aria-pressed="true"] { background: var(--gold); color: var(--bg); }
+.lens { position: fixed; z-index: 20; width: 190px; height: 190px; border-radius: 50%; overflow: hidden; pointer-events: none;
+  background: var(--bg); border: 3px solid var(--gold); box-shadow: 0 8px 24px rgb(0 0 0 / .5); }
+.lens > * { position: absolute; left: 0; top: 0; margin: 0; transform-origin: 0 0; }
+.words { padding: 16px 16px 18px; display: grid; gap: 10px; }
+.words h2 { margin: 0; font: 600 20px/1.3 var(--serif); }
+/* Groups run right to left like the slide: 1st person on the right. */
+#hand { max-width: 560px; }
+.tbl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; direction: rtl; }
+@media (max-width: 680px) { .tbl { grid-template-columns: 1fr; } }
+.grp { direction: ltr; min-width: 0; border-radius: 14px; padding: 8px 12px; display: grid; gap: 2px; align-content: start;
+  background: color-mix(in srgb, var(--g) 8%, rgba(0, 0, 0, .2)); border: 1px solid color-mix(in srgb, var(--g) 40%, transparent); }
+.grp:nth-child(1) { --g: var(--p1); } .grp:nth-child(2) { --g: var(--p2m); } .grp:nth-child(3) { --g: var(--p3m); }
+.grp h4 { margin: 0 0 4px; font: 600 12px/1.3 var(--body); color: var(--g); letter-spacing: .05em; text-transform: uppercase; }
+.grp h4 span { font: 700 20px var(--ar); text-transform: none; letter-spacing: 0; color: var(--ink); }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 2px 0; }
+.row + .row { border-top: 1px solid color-mix(in srgb, var(--g) 22%, transparent); }
+.row .ar { font: 700 34px/2 var(--ar); }
+.row .ru { font-size: 13px; color: var(--muted); text-align: right; }
+svg { width: 100%; height: auto; display: block; }
+.palm { fill: var(--palm); stroke: var(--line); stroke-width: 1.5; }
+.ph { cursor: pointer; }
+.ph rect { fill: color-mix(in srgb, var(--c) 22%, var(--panel)); stroke: var(--c); stroke-width: 2; transition: fill .2s; }
+.ph:hover rect { stroke-width: 3; }
+.ph text { font: 700 20px var(--ar); fill: var(--ink); text-anchor: middle; dominant-baseline: central; pointer-events: none; opacity: 0; transition: opacity .25s; }
+.ph text.ru { font: 500 9.5px var(--body); fill: var(--muted); }
+svg.peek .ph text, .ph.found text { opacity: 1; }
+.ph.found rect { fill: color-mix(in srgb, var(--c) 45%, var(--panel)); }
+.ph.right rect { fill: var(--ok); stroke: var(--ok); }
+.ph.wrong rect { fill: var(--bad); stroke: var(--bad); }
+.ph.show rect { fill: var(--c); stroke: var(--c); }
+.ph.right text, .ph.wrong text, .ph.show text { fill: var(--on-strong); opacity: 1; }
+.f0 { --c: var(--p1); } .f1 { --c: var(--p2m); } .f2 { --c: var(--p2f); } .f3 { --c: var(--p3m); } .f4 { --c: var(--p3f); }
+@media (prefers-reduced-motion: reduce) { .ph rect, .ph text { transition: none; } }
+.home-link { text-align: center; margin: 24px 0 0; font-size: 15px; }
+.home-link a { color: var(--muted); }
+</style>
+
+</head>
+<body>
+<main>
+  <p class="basmala" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+  <header class="card">
+    <span class="k">Нахв · учим на пальцах</span>
+    <span class="ar" lang="ar" dir="rtl">الضَّمَائِرُ الْمُنْفَصِلَةُ</span>
+    <h1>Отдельные местоимения</h1>
+  </header>
+
+  <section class="card quiz">
+  <div class="modes" role="group" aria-label="Режим">
+    <button type="button" data-mode="ar" aria-pressed="true">Арабское слово</button>
+    <button type="button" data-mode="ru">Русский перевод</button>
+  </div>
+
+  <div class="ask" aria-live="polite">
+    <span class="label" id="label">Где это слово?</span>
+    <p class="word" id="word"></p>
+    <p class="trans" id="trans"></p>
+  </div>
+  <p class="msg" id="msg">Нажми на фалангу, где оно стоит.</p>
+  <div class="stats"><span>Слово <b id="pos">1</b> из <b id="total">12</b></span><span>С первого раза: <b id="score">0</b></span></div>
+
+  <svg id="hand" viewBox="0 0 460 446" role="group" aria-label="Левая рука: 14 фаланг" lang="ar">
+    <rect class="palm" x="34" y="248" width="292" height="186" rx="70"/>
+    <ellipse class="palm" cx="330" cy="360" rx="44" ry="66"/>
+
+    <!-- Мизинец: она, они двое, они (ж.) -->
+    <g class="ph f4" data-k="hiya"><rect x="40" y="124" width="64" height="45" rx="15"/><text x="72" y="146.5">هِيَ</text></g>
+    <g class="ph f4" data-k="humaF"><rect x="40" y="173.3" width="64" height="45" rx="15"/><text x="72" y="195.8">هُمَا</text></g>
+    <g class="ph f4" data-k="hunna"><rect x="40" y="222.7" width="64" height="45" rx="15"/><text x="72" y="245.2">هُنَّ</text></g>
+
+    <!-- Безымянный: он, они двое, они (м.) -->
+    <g class="ph f3" data-k="huwa"><rect x="112" y="66" width="64" height="64.7" rx="15"/><text x="144" y="98.3">هُوَ</text></g>
+    <g class="ph f3" data-k="humaM"><rect x="112" y="134.7" width="64" height="64.7" rx="15"/><text x="144" y="167">هُمَا</text></g>
+    <g class="ph f3" data-k="hum"><rect x="112" y="203.3" width="64" height="64.7" rx="15"/><text x="144" y="235.7">هُمْ</text></g>
+
+    <!-- Средний: ты (ж.), вы двое, вы (ж.) -->
+    <g class="ph f2" data-k="anti"><rect x="184" y="44" width="64" height="72" rx="15"/><text x="216" y="80">أَنْتِ</text></g>
+    <g class="ph f2" data-k="antumaF"><rect x="184" y="120" width="64" height="72" rx="15"/><text x="216" y="156">أَنْتُمَا</text></g>
+    <g class="ph f2" data-k="antunna"><rect x="184" y="196" width="64" height="72" rx="15"/><text x="216" y="232">أَنْتُنَّ</text></g>
+
+    <!-- Указательный: ты (м.), вы двое, вы (м.) -->
+    <g class="ph f1" data-k="anta"><rect x="256" y="74" width="64" height="62" rx="15"/><text x="288" y="105">أَنْتَ</text></g>
+    <g class="ph f1" data-k="antumaM"><rect x="256" y="140" width="64" height="62" rx="15"/><text x="288" y="171">أَنْتُمَا</text></g>
+    <g class="ph f1" data-k="antum"><rect x="256" y="206" width="64" height="62" rx="15"/><text x="288" y="237">أَنْتُمْ</text></g>
+
+    <!-- Большой: я, мы -->
+    <g transform="rotate(22 350 360)">
+      <g class="ph f0" data-k="ana"><rect x="318" y="210" width="64" height="60" rx="15"/><text x="350" y="240" transform="rotate(-22 350 240)">أَنَا</text></g>
+      <g class="ph f0" data-k="nahnu"><rect x="318" y="274" width="64" height="60" rx="15"/><text x="350" y="304" transform="rotate(-22 350 304)">نَحْنُ</text></g>
+    </g>
+  </svg>
+
+  <div class="tools">
+    <button type="button" id="peekBtn" aria-pressed="false">Подсмотреть руку</button>
+    <button type="button" id="restartBtn">Начать заново</button>
+  </div>
+  </section>
+  <section class="card words" aria-labelledby="wordsTitle">
+    <h2 id="wordsTitle">Все местоимения</h2>
+    <div class="tbl" id="tbl"></div>
+  </section>
+</main>
+<div class="lens" id="lens" hidden aria-hidden="true"></div>
+<button type="button" id="loupeBtn" class="fab" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 0 1 5.6 11.2l5.1 5.1-1.4 1.4-5.1-5.1A7 7 0 1 1 10 3zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/></svg><span>Лупа</span></button>
+
+<script>
+const $ = id => document.getElementById(id);
+const hand = $('hand');
+const segs = [...hand.querySelectorAll('.ph')];
+const wordOf = g => g.querySelector('text').textContent;
+
+// Labels under the pronoun on each phalanx
+const RU = { ana: 'я', nahnu: 'мы', anta: 'ты (м.)', antumaM: 'вы двое', antum: 'вы (м.)', anti: 'ты (ж.)', antumaF: 'вы двое',
+  antunna: 'вы (ж.)', huwa: 'он', humaM: 'они двое', hum: 'они (м.)', hiya: 'она', humaF: 'они двое', hunna: 'они (ж.)' };
+segs.forEach(g => {
+  const a = g.querySelector('text'), x = +a.getAttribute('x'), y = +a.getAttribute('y');
+  a.setAttribute('y', y - 7);
+  const r = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  r.setAttribute('class', 'ru'); r.setAttribute('x', x); r.setAttribute('y', y + 13);
+  if (a.getAttribute('transform')) r.setAttribute('transform', a.getAttribute('transform'));
+  r.textContent = RU[g.dataset.k];
+  g.appendChild(r);
+});
+
+// One entry per distinct word: هُمَا and أَنْتُمَا stand on two fingers and either finger counts.
+const PRONOUNS = [
+  { w: 'أَنَا', ru: 'я', grp: 1 },
+  { w: 'نَحْنُ', ru: 'мы', grp: 1 },
+  { w: 'أَنْتَ', ru: 'ты', who: 'мужчина', grp: 2 },
+  { w: 'أَنْتِ', ru: 'ты', who: 'женщина', grp: 2 },
+  { w: 'أَنْتُمَا', ru: 'вы двое', who: 'м. и ж.', grp: 2 },
+  { w: 'أَنْتُمْ', ru: 'вы', who: 'мужчины', grp: 2 },
+  { w: 'أَنْتُنَّ', ru: 'вы', who: 'женщины', grp: 2 },
+  { w: 'هُوَ', ru: 'он', grp: 3 },
+  { w: 'هِيَ', ru: 'она', grp: 3 },
+  { w: 'هُمَا', ru: 'они двое', who: 'м. и ж.', grp: 3 },
+  { w: 'هُمْ', ru: 'они', who: 'мужчины', grp: 3 },
+  { w: 'هُنَّ', ru: 'они', who: 'женщины', grp: 3 }
+];
+const ruFull = p => p.ru + (p.who ? ' · ' + p.who : '');
+
+const pref = (k, d) => { try { const v = localStorage.getItem('hand-' + k); return v === null ? d : v; } catch (e) { return d; } };
+const setPref = (k, v) => { try { localStorage.setItem('hand-' + k, v); } catch (e) {} };
+
+let mode = pref('mode', 'ar');
+let order, i, tries, score, locked;
+function shuffle(a) { a = a.slice(); for (let j = a.length - 1; j > 0; j--) { const r = Math.floor(Math.random() * (j + 1)); [a[j], a[r]] = [a[r], a[j]]; } return a; }
+
+function start() {
+  order = shuffle(PRONOUNS); i = 0; score = 0;
+  segs.forEach(g => g.classList.remove('found', 'right', 'wrong', 'show'));
+  $('total').textContent = order.length;
+  ask();
+}
+function showArabic(p) {
+  const w = $('word'); w.className = 'word'; w.lang = 'ar'; w.dir = 'rtl'; w.textContent = p.w;
+}
+function ask() {
+  tries = 0; locked = false;
+  const p = order[i], w = $('word');
+  if (mode === 'ar') {
+    showArabic(p);
+    $('trans').textContent = ruFull(p);
+    $('label').textContent = 'Где это слово?';
+  } else {
+    w.className = 'word ru'; w.lang = 'ru'; w.dir = 'ltr';
+    w.textContent = p.ru;
+    $('trans').textContent = p.who || '';
+    $('label').textContent = 'Как это по-арабски? Найди на руке';
+  }
+  $('pos').textContent = i + 1; $('score').textContent = score;
+  msg('Нажми на фалангу, где оно стоит.', '');
+}
+function msg(t, cls) { const m = $('msg'); m.textContent = t; m.className = 'msg ' + cls; }
+const spots = w => segs.filter(g => wordOf(g) === w);
+function reveal(p) { showArabic(p); $('trans').textContent = ruFull(p); }
+
+function tap(g) {
+  if (locked || i >= order.length) return;
+  const p = order[i];
+  if (wordOf(g) === p.w) {
+    locked = true;
+    if (tries === 0) score++;
+    spots(p.w).forEach(s => s.classList.add('right'));
+    reveal(p);
+    msg(tries === 0 ? '' : 'со второй попытки', 'ok');
+    const praise = document.createElement('span'); praise.className = 'praise'; praise.lang = 'ar'; praise.dir = 'rtl';
+    praise.textContent = 'مُمْتَاز!';
+    $('msg').prepend(praise, ' ');
+    $('score').textContent = score;
+    setTimeout(next, 1500);
+    return;
+  }
+  tries++;
+  g.classList.add('wrong');
+  setTimeout(() => g.classList.remove('wrong'), 700);
+  if (tries === 1) { msg('Не здесь. Попробуй ещё раз.', 'bad'); return; }
+  locked = true;
+  spots(p.w).forEach(s => s.classList.add('show'));
+  reveal(p);
+  msg('Вот где оно стоит. Запомни это место.', 'bad');
+  setTimeout(next, 2400);
+}
+function next() {
+  spots(order[i].w).forEach(s => { s.classList.remove('right', 'show'); s.classList.add('found'); });
+  i++;
+  if (i < order.length) return ask();
+  const w = $('word'); w.className = 'word ru'; w.lang = 'ru'; w.dir = 'ltr';
+  $('label').textContent = 'Готово';
+  w.textContent = `${score} / ${order.length}`;
+  $('trans').textContent = 'с первого раза';
+  $('pos').textContent = order.length;
+  msg(score === order.length ? 'Все слова с первого раза. Отлично!' : 'Нажми «Начать заново», чтобы пройти ещё раз.', score === order.length ? 'ok' : '');
+}
+
+segs.forEach(g => {
+  g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button');
+  g.addEventListener('click', () => tap(g));
+  g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(g); } });
+});
+const peek = $('peekBtn');
+peek.addEventListener('click', () => {
+  const on = peek.getAttribute('aria-pressed') !== 'true';
+  peek.setAttribute('aria-pressed', on); hand.classList.toggle('peek', on);
+  peek.textContent = on ? 'Спрятать слова' : 'Подсмотреть руку';
+});
+$('restartBtn').addEventListener('click', start);
+
+const modeBtns = [...document.querySelectorAll('[data-mode]')];
+function paintMode() { modeBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode)); }
+modeBtns.forEach(b => b.addEventListener('click', () => { mode = b.dataset.mode; setPref('mode', mode); paintMode(); start(); }));
+paintMode();
+
+// Table of all pronouns, right to left like the slide: 1st person on the right.
+const GROUPS = [[1, '1-е лицо', 'الْمُتَكَلِّم'], [2, '2-е лицо', 'الْمُخَاطَب'], [3, '3-е лицо', 'الْغَائِب']];
+(function paintTable() {
+  const tbl = $('tbl');
+  GROUPS.forEach(([g, ru, ar]) => {
+    const box = document.createElement('div'); box.className = 'grp';
+    const h = document.createElement('h4'); h.append(ru + ' · ');
+    const sp = document.createElement('span'); sp.lang = 'ar'; sp.textContent = ar; h.append(sp); box.append(h);
+    PRONOUNS.filter(p => p.grp === g).forEach(p => {
+      const row = document.createElement('div'); row.className = 'row';
+      const a = document.createElement('span'); a.className = 'ar'; a.lang = 'ar'; a.dir = 'rtl'; a.textContent = p.w;
+      const r = document.createElement('span'); r.className = 'ru'; r.textContent = ruFull(p);
+      row.append(a, r); box.append(row);
+    });
+    tbl.append(box);
+  });
+})();
+
+// Loupe: move the mouse or finger over the word or the hand to see the vowel marks enlarged.
+const lens = $('lens'), loupeBtn = $('loupeBtn'), ZOOM = 2.6, LENS = 190;
+let loupeOn = false;
+loupeBtn.addEventListener('click', () => {
+  loupeOn = !loupeOn;
+  loupeBtn.setAttribute('aria-pressed', loupeOn);
+  loupeBtn.querySelector('span').textContent = loupeOn ? 'Лупа: вкл' : 'Лупа';
+  document.body.classList.toggle('loupe-on', loupeOn);
+  if (!loupeOn) lens.hidden = true;
+  msg(loupeOn ? 'Води пальцем или мышкой по странице, и огласовки станут крупнее. Чтобы листать, выключи лупу.' : '', '');
+});
+// The whole quiz is magnified. Its copy is rebuilt only when something on the page changes.
+const area = document.querySelector('main');
+let copy = null;
+new MutationObserver(() => { copy = null; }).observe(area, { subtree: true, childList: true, attributes: true, characterData: true });
+function moveLens(e) {
+  if (!loupeOn) return;
+  if (e.target.closest && e.target.closest('#loupeBtn')) { lens.hidden = true; return; }
+  const r = area.getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  if (x < -20 || y < -20 || x > r.width + 20 || y > r.height + 20) { lens.hidden = true; return; }
+  if (!copy) {
+    copy = area.cloneNode(true);
+    copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+  }
+  copy.style.width = r.width + 'px';
+  copy.style.transform = `translate(${LENS / 2 - x * ZOOM}px, ${LENS / 2 - y * ZOOM}px) scale(${ZOOM})`;
+  if (lens.firstChild !== copy) lens.replaceChildren(copy);
+  // A finger would cover the lens, so on touch it floats above the finger.
+  const lift = e.pointerType === 'touch' ? LENS * 0.75 : 0;
+  lens.style.left = (e.clientX - LENS / 2) + 'px';
+  lens.style.top = Math.max(4, e.clientY - LENS / 2 - lift) + 'px';
+  lens.hidden = false;
+}
+document.addEventListener('pointermove', moveLens);
+document.addEventListener('pointerdown', moveLens);
+document.addEventListener('pointerup', e => { if (e.pointerType === 'touch') lens.hidden = true; });
+document.addEventListener('pointerleave', () => { lens.hidden = true; });
+
+start();
+</script>
+
+<p class="home-link"><a href="index.html">← Все викторины</a></p>
+</body>
+</html>
