@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Виды определённости</title>
+<meta property="og:title" content="Виды определённости">
+<meta property="og:description" content="Короткая викторина по нахву: أَنْوَاعُ الْمَعْرِفَةِ — виды определённых имён.">
+<meta name="description" content="Короткая викторина по нахву: виды определённых имён (أَنْوَاعُ الْمَعْرِفَةِ).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Lora:wght@600;700&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Same emerald and gold palette as the other quizzes. */
+:root {
+  --bg: #04110D; --panel: #0A1F18; --panel-2: #0E2A21; --ink: #EEF0E6; --muted: #98AFA4;
+  --line: rgba(214, 178, 104, .28); --line-soft: rgba(214, 178, 104, .14);
+  --gold: #E4BE72; --ok: #3BE3A0; --bad: #F2675C; --harf: #F0C675; --ism: #5FE0B6;
+  --ar: "Scheherazade New", "Amiri", "Geeza Pro", serif;
+  --serif: "Lora", Georgia, serif;
+  --body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); font: 400 16px/1.5 var(--body); -webkit-font-smoothing: antialiased;
+  padding: max(20px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D6B268' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M40 4 50 30 76 40 50 50 40 76 30 50 4 40 30 30Z'/%3E%3Cpath d='M40 18 58 22 62 40 58 58 40 62 22 58 18 40 22 22Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(1200px 600px at 70% -10%, #0F3328 0%, transparent 60%), var(--bg); background-attachment: fixed; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+main { max-width: 680px; margin: 0 auto; display: grid; gap: 16px; }
+.card { background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+
+.basmala { margin: 0; text-align: center; font: 700 26px/1.8 var(--ar); color: var(--gold); }
+header { text-align: center; padding: 20px 18px 18px; }
+header .k { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+header .ar { display: block; margin: 4px 0 0; font: 700 44px/1.6 var(--ar); color: var(--gold); text-shadow: 0 0 18px rgba(228, 190, 114, .3); }
+header h1 { margin: 0; font: 600 26px/1.25 var(--serif); }
+
+.modes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.modes button { padding: 10px 6px; border-radius: 14px; border: 1px solid var(--line-soft); background: rgba(0, 0, 0, .2); color: var(--muted); font-size: 14px; font-weight: 500; line-height: 1.25; }
+.modes button.on { color: var(--ink); border-color: var(--gold); background: rgba(228, 190, 114, .12); box-shadow: 0 0 0 1px var(--gold) inset; }
+
+.quiz { padding: 18px 20px 20px; }
+.qtop { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); }
+.bar { flex: 1; height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--ok)); transition: width .3s; }
+.score { color: var(--gold); font-weight: 600; }
+.ask { margin: 16px 0 4px; text-align: center; color: var(--muted); font-size: 15px; }
+.word { margin: 0; text-align: center; font: 700 54px/1.7 var(--ar); color: var(--ink); min-height: 92px; }
+.word .gap { display: inline-block; min-width: 2.2em; border-bottom: 3px dashed var(--gold); color: var(--gold); }
+.trans { margin: 0 0 12px; text-align: center; color: var(--muted); font-size: 16px; min-height: 24px; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opts button { min-height: 62px; padding: 8px 12px; border-radius: 16px; border: 1px solid var(--line); background: rgba(0, 0, 0, .22); font-size: 17px; font-weight: 500; }
+.opts button.ar { font: 700 30px/1.5 var(--ar); }
+.opts button:hover:not(:disabled) { border-color: var(--gold); }
+.opts button.ok { border-color: var(--ok); background: rgba(59, 227, 160, .22); color: #fff; box-shadow: 0 0 0 2px var(--ok), 0 0 22px rgba(59, 227, 160, .55); }
+.opts button.bad { border-color: var(--bad); background: rgba(242, 103, 92, .18); }
+.opts button:disabled { cursor: default; }
+.opts button:disabled:not(.ok):not(.bad) { opacity: .5; }
+.msg { min-height: 30px; margin: 12px 0 0; text-align: center; font-weight: 600; }
+.msg.ok { color: var(--ok); } .msg.bad { color: var(--bad); }
+.msg .praise { font: 700 28px/1.2 var(--ar); }
+.row { display: flex; justify-content: center; margin-top: 10px; }
+.next { padding: 10px 26px; border-radius: 99px; border: 1px solid var(--gold); background: rgba(228, 190, 114, .14); font-weight: 600; }
+.next[hidden] { display: none; }
+.done { text-align: center; padding: 10px 0 4px; }
+.done b { display: block; font: 700 40px/1.3 var(--serif); color: var(--gold); }
+
+details.cheat summary { list-style: none; cursor: pointer; padding: 16px 20px; font: 600 20px/1.3 var(--serif); }
+details.cheat summary::-webkit-details-marker { display: none; }
+.cheat-body { padding: 0 20px 18px; }
+.cheat h3 { margin: 14px 0 6px; font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.cheat h3.harf { color: var(--harf); } .cheat h3.ism { color: var(--ism); }
+.cheat table { width: 100%; border-collapse: collapse; }
+.cheat td { padding: 6px 4px; border-top: 1px solid var(--line-soft); vertical-align: middle; font-size: 15px; }
+.cheat td.a { font: 700 26px/1.5 var(--ar); text-align: right; white-space: nowrap; width: 1%; padding-left: 14px; }
+.cheat td.ex { font: 400 20px/1.5 var(--ar); text-align: right; color: var(--muted); }
+
+@media (max-width: 520px) {
+  .modes { grid-template-columns: 1fr 1fr; }
+  .word { font-size: 42px; min-height: 76px; }
+  .opts button.ar { font-size: 26px; }
+  .cheat td.ex { display: none; }
+}
+</style>
+</head>
+<body>
+<main>
+  <p class="basmala" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+  <header class="card">
+    <span class="k">Нахв</span>
+    <span class="ar" lang="ar" dir="rtl">أَنْوَاعُ الْمَعْرِفَةِ</span>
+    <h1>Виды определённости</h1>
+  </header>
+
+  <nav class="modes" aria-label="Режим">
+    <button data-mode="group" class="on">Какая группа?</button>
+    <button data-mode="def">Опр. или неопр.?</button>
+    <button data-mode="rel">Который?</button>
+    <button data-mode="mix">Всё вместе</button>
+  </nav>
+
+  <section class="card quiz" aria-live="polite">
+    <div class="qtop"><span><b id="pos">1</b> / <span id="total">10</span></span><span class="bar"><i id="bar"></i></span><span class="score">★ <span id="score">0</span></span></div>
+    <div id="body">
+      <p class="ask" id="ask"></p>
+      <p class="word" id="word" lang="ar" dir="rtl"></p>
+      <p class="trans" id="trans"></p>
+      <div class="opts" id="opts"></div>
+      <p class="msg" id="msg"></p>
+      <div class="row"><button class="next" id="next" hidden>Далее</button></div>
+    </div>
+  </section>
+
+  <details class="card cheat">
+    <summary>Шпаргалка</summary>
+    <div class="cheat-body">
+      <h3 class="harf">Сначала сравни</h3>
+      <table>
+        <tr><td class="a" lang="ar">كِتَابٌ</td><td>неопределённое — какая-то книга</td></tr>
+        <tr><td class="a" lang="ar">الْكِتَابُ</td><td>определённое — эта, известная книга</td></tr>
+      </table>
+      <h3 class="ism">Пять групп определённых имён</h3>
+      <table id="cheatGroups"></table>
+      <h3 class="ism">Относительные имена</h3>
+      <table id="cheatRel"></table>
+      <h3 class="ism">Когда идафа определённая</h3>
+      <table>
+        <tr><td class="a" lang="ar">كِتَابُ مُحَمَّدٍ</td><td>определённая — второе имя определённое (имя собственное). «Книга Мухаммада»</td></tr>
+        <tr><td class="a" lang="ar">كِتَابُ طَالِبٍ</td><td>неопределённая — второе имя неопределённое. «Книга какого-то студента»</td></tr>
+      </table>
+    </div>
+  </details>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+// The five groups of definite nouns from the lesson.
+const GROUPS = [
+  { g: 'Личное местоимение', how: 'участники речи', ex: 'أَنَا، نَحْنُ',
+    w: [['أَنَا', 'я'], ['نَحْنُ', 'мы'], ['أَنْتَ', 'ты'], ['هُوَ', 'он'], ['هِيَ', 'она']] },
+  { g: 'Имя с артиклем', how: 'у имени есть артикль ال', ex: 'الْكِتَابُ',
+    w: [['الْكِتَابُ', 'книга'], ['الْبَيْتُ', 'дом'], ['الْمُعَلِّمُ', 'учитель'], ['الطَّالِبُ', 'студент'], ['الْمَسْجِدُ', 'мечеть']] },
+  { g: 'Имя собственное', how: 'имя конкретного человека', ex: 'مُحَمَّدٌ، خَدِيجَةُ',
+    w: [['مُحَمَّدٌ', 'Мухаммад'], ['خَدِيجَةُ', 'Хадиджа'], ['أَحْمَدُ', 'Ахмад'], ['فَاطِمَةُ', 'Фатима'], ['مَرْيَمُ', 'Марьям']] },
+  { g: 'Относительное имя', how: 'после него идёт пояснение', ex: 'الَّذِي، الَّتِي',
+    w: [['الَّذِي', 'который'], ['الَّتِي', 'которая'], ['الَّذِينَ', 'которые (мужчины)'], ['اللَّاتِي', 'которые (женщины)']] },
+  { g: 'Идафа с определённым именем', how: 'второе имя определённое', ex: 'كِتَابُ مُحَمَّدٍ',
+    w: [['كِتَابُ مُحَمَّدٍ', 'книга Мухаммада'], ['بَيْتُ الْمُعَلِّمِ', 'дом учителя'], ['بَابُ الْبَيْتِ', 'дверь дома'], ['رَسُولُ اللَّهِ', 'посланник Аллаха'], ['مَسْجِدُ الْمَدِينَةِ', 'мечеть города']] },
+];
+// Definite or indefinite: d = definite, why = short reason.
+const DEF = [
+  ['كِتَابٌ', 'книга', false, 'нет артикля, есть танвин'],
+  ['بَيْتٌ', 'дом', false, 'нет артикля, есть танвин'],
+  ['طَالِبٌ', 'студент', false, 'нет артикля, есть танвин'],
+  ['مُعَلِّمٌ', 'учитель', false, 'нет артикля, есть танвин'],
+  ['قَلَمٌ', 'ручка', false, 'нет артикля, есть танвин'],
+  ['كِتَابُ طَالِبٍ', 'книга какого-то студента', false, 'второе имя неопределённое'],
+  ['بَيْتُ مُعَلِّمٍ', 'дом какого-то учителя', false, 'второе имя неопределённое'],
+  ['الْكِتَابُ', 'книга', true, 'имя с артиклем'],
+  ['الْبَيْتُ', 'дом', true, 'имя с артиклем'],
+  ['مُحَمَّدٌ', 'Мухаммад', true, 'имя собственное'],
+  ['خَدِيجَةُ', 'Хадиджа', true, 'имя собственное'],
+  ['أَنَا', 'я', true, 'личное местоимение'],
+  ['نَحْنُ', 'мы', true, 'личное местоимение'],
+  ['الَّذِي', 'который', true, 'относительное имя'],
+  ['كِتَابُ مُحَمَّدٍ', 'книга Мухаммада', true, 'идафа: второе имя определённое'],
+  ['بَيْتُ الْمُعَلِّمِ', 'дом учителя', true, 'идафа: второе имя определённое'],
+].map(([a, ru, d, why]) => ({ a, ru, d, why }));
+// Relative nouns: who they refer to.
+const REL = [
+  { a: 'الَّذِي', who: 'об одном мужчине', ru: 'который' },
+  { a: 'الَّتِي', who: 'об одной женщине', ru: 'которая' },
+  { a: 'الَّذِينَ', who: 'о нескольких мужчинах', ru: 'которые' },
+  { a: 'اللَّاتِي', who: 'о нескольких женщинах', ru: 'которые' },
+];
+
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = (arr, n) => shuffle(arr).slice(0, n);
+const ITEMS = GROUPS.flatMap(G => G.w.map(([a, ru]) => ({ a, ru, G })));
+
+$('cheatGroups').innerHTML = GROUPS.map(G => `<tr><td><b>${G.g}</b><br><span style="color:var(--muted)">${G.how}</span></td><td class="a" lang="ar" dir="rtl">${G.ex}</td></tr>`).join('');
+$('cheatRel').innerHTML = REL.map(r => `<tr><td class="a" lang="ar">${r.a}</td><td>${r.ru} — ${r.who}</td></tr>`).join('');
+
+function makeGroup(it) {
+  const others = pick(GROUPS.filter(G => G !== it.G).map(G => G.g), 3);
+  return { ask: 'К какой группе относится?', word: it.a, trans: '«' + it.ru + '»', ar: false, good: it.G.g,
+    opts: shuffle([it.G.g, ...others]), why: `${it.G.g} — ${it.G.how}` };
+}
+function makeDef(d) {
+  return { ask: 'Определённое или неопределённое?', word: d.a, trans: '«' + d.ru + '»', ar: false,
+    good: d.d ? 'Определённое' : 'Неопределённое', opts: ['Определённое', 'Неопределённое'],
+    why: (d.d ? 'определённое' : 'неопределённое') + ' — ' + d.why };
+}
+function makeRel(r, flip) {
+  if (flip) return { ask: 'О ком говорит это слово?', word: r.a, trans: '«' + r.ru + '»', ar: false, good: r.who,
+    opts: shuffle(REL.map(x => x.who)), why: `${r.a} — ${r.who}` };
+  return { ask: 'Какое слово «который» нужно ' + r.who + '?', word: '', trans: '', ar: true, good: r.a,
+    opts: shuffle(REL.map(x => x.a)), why: `${r.who} — ${r.a}` };
+}
+
+let mode = 'group', qs = [], i = 0, score = 0, timer = 0;
+function build() {
+  const kinds = [];
+  if (mode === 'group') pick(ITEMS, 10).forEach(it => kinds.push(makeGroup(it)));
+  if (mode === 'def') pick(DEF, 10).forEach(d => kinds.push(makeDef(d)));
+  if (mode === 'rel') REL.forEach(r => { kinds.push(makeRel(r, false)); kinds.push(makeRel(r, true)); });
+  if (mode === 'mix') {
+    pick(ITEMS, 4).forEach(it => kinds.push(makeGroup(it)));
+    pick(DEF, 4).forEach(d => kinds.push(makeDef(d)));
+    pick(REL, 2).forEach(r => kinds.push(makeRel(r, Math.random() < .5)));
+  }
+  qs = shuffle(kinds);
+  i = 0; score = 0; render();
+}
+function render() {
+  clearTimeout(timer);
+  $('total').textContent = qs.length; $('score').textContent = score;
+  $('bar').style.width = (i / qs.length * 100) + '%';
+  if (i >= qs.length) {
+    $('body').innerHTML = `<div class="done"><b>${score} / ${qs.length}</b><p>${score === qs.length ? 'Все ответы верные!' : 'Хорошая работа. Попробуй ещё раз.'}</p><div class="row"><button class="next" id="again">Ещё раз</button></div></div>`;
+    $('again').onclick = () => { restoreBody(); build(); };
+    return;
+  }
+  const q = qs[i];
+  $('pos').textContent = i + 1;
+  $('ask').textContent = q.ask;
+  $('word').textContent = q.word;
+  $('word').style.display = q.word ? '' : 'none';
+  $('trans').textContent = q.trans;
+  $('msg').textContent = ''; $('msg').className = 'msg';
+  $('next').hidden = true;
+  const box = $('opts'); box.innerHTML = '';
+  q.opts.forEach(o => {
+    const b = document.createElement('button');
+    b.textContent = o;
+    if (q.ar) { b.className = 'ar'; b.lang = 'ar'; b.dir = 'rtl'; }
+    b.onclick = () => answer(b, o);
+    box.appendChild(b);
+  });
+}
+function answer(btn, o) {
+  const q = qs[i], ok = o === q.good;
+  [...$('opts').children].forEach(b => { b.disabled = true; if (b.textContent === q.good) b.classList.add('ok'); });
+  const m = $('msg');
+  if (ok) {
+    score++; $('score').textContent = score;
+    m.className = 'msg ok'; m.innerHTML = '';
+    const p = document.createElement('span'); p.className = 'praise'; p.lang = 'ar'; p.dir = 'rtl'; p.textContent = 'مُمْتَاز!';
+    m.appendChild(p);
+    timer = setTimeout(() => { i++; render(); }, 1800);
+  } else {
+    btn.classList.add('bad');
+    m.className = 'msg bad'; m.textContent = 'Правильно: ' + q.why;
+  }
+  $('next').hidden = false;
+}
+const BODY = $('body').innerHTML;
+function restoreBody() { $('body').innerHTML = BODY; $('next').onclick = () => { i++; render(); }; }
+$('next').onclick = () => { i++; render(); };
+document.querySelectorAll('.modes button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.modes button').forEach(x => x.classList.toggle('on', x === b));
+  mode = b.dataset.mode; restoreBody(); build();
+});
+build();
+</script>
+</body>
+</html>
